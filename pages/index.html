@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Kehadiran IF & SI</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+      <aside class="w-64 bg-indigo-900 text-white flex flex-col hidden md:flex">
+        <div
+          class="p-5 text-2xl font-bold tracking-wider border-b border-indigo-800 flex items-center gap-3"
+        >
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>E-Absensi</span>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+          <button
+            onclick="switchTab('dashboard')"
+            id="btn-dashboard"
+            class="w-full flex items-center gap-3 px-4 py-3 bg-indigo-800 text-white font-medium rounded-lg transition text-left cursor-pointer"
+          >
+            <i class="fa-solid fa-chart-pie w-5"></i> Input Kehadiran
+          </button>
+          <button
+            onclick="switchTab('jadwal')"
+            id="btn-jadwal"
+            class="w-full flex items-center gap-3 px-4 py-3 text-indigo-200 hover:bg-indigo-800 hover:text-white rounded-lg transition text-left cursor-pointer"
+          >
+            <i class="fa-solid fa-calendar-days w-5"></i> Jadwal Kuliah
+          </button>
+          <button
+            onclick="switchTab('riwayat')"
+            id="btn-riwayat"
+            class="w-full flex items-center gap-3 px-4 py-3 text-indigo-200 hover:bg-indigo-800 hover:text-white rounded-lg transition text-left cursor-pointer"
+          >
+            <i class="fa-solid fa-clock-rotate-left w-5"></i> Riwayat Absen
+          </button>
+          <button
+            onclick="switchTab('mahasiswa')"
+            id="btn-mahasiswa"
+            class="w-full flex items-center gap-3 px-4 py-3 text-indigo-200 hover:bg-indigo-800 hover:text-white rounded-lg transition text-left cursor-pointer"
+          >
+            <i class="fa-solid fa-user w-5"></i> Daftar Mahasiswa
+          </button>
+        </nav>
+        <div class="p-4 border-t border-indigo-800">
+          <a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-red-900/50 hover:text-white rounded-lg transition"
+          >
+            <i class="fa-solid fa-right-from-bracket w-5"></i> Keluar
+          </a>
+        </div>
+      </aside>
+
+      <main class="flex-1 flex flex-col overflow-y-auto">
+        <header
+          class="bg-white shadow-sm px-6 py-4 flex justify-between items-center border-b border-gray-200"
+        >
+          <div>
+            <h1 class="text-lg text-gray-500 font-bold">Selamat Datang</h1>
+            <p class="text-xl font-bold text-teal-600 underline">
+              Mahasiswa IF - SI
+            </p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-semibold text-gray-700">
+                Rabu, 10 Juni 2026
+              </p>
+              <p class="text-xs text-gray-400">18:56 WIB</p>
+            </div>
+            <img
+              src="unilam.png"
+              alt=""
+              class="w-12 h-12 rounded-full bg-white text-slate-800 flex items-center justify-center font-bold shadow-md"
+            />
+          </div>
+        </header>
+
+        <div class="p-6">
+          <div id="panel-dashboard" class="tab-panel space-y-12">
+            <div class="space-y-4">
+              <div class="border-l-4 border-indigo-600 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  PROGRAM STUDI: INFORMATIKA (IF)
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div
+                  class="p-5 border-b border-gray-100 flex justify-between items-center bg-indigo-50/50"
+                >
+                  <h3
+                    class="font-bold text-indigo-900 text-base flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-users"></i> Input Kehadiran Mahasiswa
+                    Informatika
+                  </h3>
+                  <span
+                    class="px-3 py-1 bg-indigo-600 text-white font-semibold text-xs rounded-full"
+                    >15 Mahasiswa</span
+                  >
+                </div>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-gray-50 shadow-xs z-10">
+                      <tr
+                        class="text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-12 text-center">No</th>
+                        <th class="p-4">NPM / NIM</th>
+                        <th class="p-4">Nama Mahasiswa</th>
+                        <th class="p-4 text-center">Status Kehadiran</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      id="tbody-input-if"
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    ></tbody>
+                  </table>
+                </div>
+                <div
+                  class="p-4 bg-gray-50 border-t border-gray-100 flex justify-end"
+                >
+                  <button
+                    onclick="kirimKehadiran('Informatika')"
+                    class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-md transition flex items-center gap-2 cursor-pointer"
+                  >
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Kehadiran IF
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-teal-500 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  PROGRAM STUDI: SISTEM INFORMASI (SI)
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div
+                  class="p-5 border-b border-gray-100 flex justify-between items-center bg-teal-50"
+                >
+                  <h3
+                    class="font-bold text-teal-900 text-base flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-users"></i> Input Kehadiran Mahasiswa
+                    Sistem Informasi
+                  </h3>
+                  <span
+                    class="px-3 py-1 bg-teal-600 text-white font-semibold text-xs rounded-full"
+                    >15 Mahasiswa</span
+                  >
+                </div>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-gray-50 shadow-xs z-10">
+                      <tr
+                        class="text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-12 text-center">No</th>
+                        <th class="p-4">NPM / NIM</th>
+                        <th class="p-4">Nama Mahasiswa</th>
+                        <th class="p-4 text-center">Status Kehadiran</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      id="tbody-input-si"
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    ></tbody>
+                  </table>
+                </div>
+                <div
+                  class="p-4 bg-gray-50 border-t border-gray-100 flex justify-end"
+                >
+                  <button
+                    onclick="kirimKehadiran('Sistem Informasi')"
+                    class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm rounded-xl shadow-md transition flex items-center gap-2 cursor-pointer"
+                  >
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Kehadiran SI
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-jadwal" class="tab-panel hidden space-y-12">
+            <div class="space-y-4">
+              <div class="border-l-4 border-indigo-600 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  JADWAL KULIAH INFORMATIKA
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div
+                  class="p-5 border-b border-gray-100 bg-indigo-900 text-white"
+                >
+                  <h3 class="font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-week"></i> Semester IV -
+                    Informatika
+                  </h3>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse text-left">
+                    <thead>
+                      <tr
+                        class="bg-gray-50 text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-28">Hari</th>
+                        <th class="p-4">Waktu</th>
+                        <th class="p-4">Ruangan</th>
+                        <th class="p-4 text-center">SKS</th>
+                        <th class="p-4">Mata Kuliah</th>
+                        <th class="p-4">Dosen Pengampu</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    >
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Rabu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">09:40 - 12:10</td>
+                        <td class="p-4">Lab Komputer / E.104</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Multimedia dan Teknologi Kreatif
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Cancan Firman
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Rabu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">13:00 - 15:30</td>
+                        <td class="p-4">E.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Pemrograman Berbasis Web
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Moch. Diki W* /
+                          <span class="text-red-600 font-semibold"
+                            >Rahmat Nurcahyo</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Kamis
+                        </td>
+                        <td class="p-4 whitespace-nowrap">09:40 - 12:10</td>
+                        <td class="p-4">D.102</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Kewirausahaan
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Noorma Yunia
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Kamis
+                        </td>
+                        <td class="p-4 whitespace-nowrap">13:00 - 15:00</td>
+                        <td class="p-4">D.102</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Analisis Dan Desain perangkat lunak
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Moch Diki Widianto
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Sabtu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">10:00 - 12:00</td>
+                        <td class="p-4">A.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Pengembangan Produk Digital
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Yulikuspartono
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Sabtu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">13:00-15:30</td>
+                        <td class="p-4">C.104</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Rekayasa Perangkat Lunak
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Rahmat Nurcahyo
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-4 font-bold text-indigo-900 uppercase">
+                          Sabtu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">15:45-17:45</td>
+                        <td class="p-4">C.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-blue-100 text-blue-700 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Internet Of Things
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Taufiqurohman
+                          <span class="text-red-600">Adang Sutisna</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-teal-500 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  JADWAL KULIAH SISTEM INFORMASI
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div
+                  class="p-5 border-b border-gray-100 bg-teal-600 text-white"
+                >
+                  <h3 class="font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-week"></i> Semester IV Pagi -
+                    Sistem Informasi
+                  </h3>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse text-left">
+                    <thead>
+                      <tr
+                        class="bg-gray-50 text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-28">Hari</th>
+                        <th class="p-4">Waktu</th>
+                        <th class="p-4">Ruangan</th>
+                        <th class="p-4 text-center">SKS</th>
+                        <th class="p-4">Mata Kuliah</th>
+                        <th class="p-4">Dosen Pengampu</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    >
+                      <tr>
+                        <td
+                          class="p-4 font-bold text-teal-900 uppercase"
+                          rowspan="2"
+                        >
+                          Rabu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">09.40 - 12.10</td>
+                        <td class="p-4">E.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Keamanan Jaringan
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Herdi Khaerul* /
+                          <span class="text-red-600">Stefanus Digita</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="p-4 whitespace-nowrap border-t border-gray-100"
+                        >
+                          13.00 - 15.30
+                        </td>
+                        <td class="p-4 border-t border-gray-100">E.103</td>
+                        <td class="p-4 text-center border-t border-gray-100">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td
+                          class="p-4 font-semibold text-gray-800 border-t border-gray-100"
+                        >
+                          Pemrograman Berbasis Web
+                        </td>
+                        <td
+                          class="p-4 font-medium text-gray-600 border-t border-gray-100"
+                        >
+                          Moch. Diki W* /
+                          <span class="text-red-600">Rahmat Nurcahyo</span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          class="p-4 font-bold text-teal-900 uppercase"
+                          rowspan="2"
+                        >
+                          Kamis
+                        </td>
+                        <td class="p-4 whitespace-nowrap">09.40 - 12.10</td>
+                        <td class="p-4">D.102</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Kewirausahaan
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Noorma Yunia
+                        </td>
+                      </tr>
+                      <tr class="bg-amber-50/70">
+                        <td
+                          class="p-4 whitespace-nowrap font-semibold text-amber-950 border-t border-amber-100"
+                        >
+                          13:00 - 15:30
+                        </td>
+                        <td
+                          class="p-4 text-amber-900 border-t border-amber-100"
+                        >
+                          C.103
+                        </td>
+                        <td class="p-4 text-center border-t border-amber-100">
+                          <span
+                            class="px-2.5 py-0.5 bg-amber-200 text-amber-800 font-bold text-xs rounded-full"
+                            >2</span
+                          >
+                        </td>
+                        <td
+                          class="p-4 font-bold text-amber-950 border-t border-amber-100 flex items-center gap-1.5"
+                        >
+                          Communication Skill
+                          <span
+                            class="text-[10px] bg-amber-600 text-white px-1.5 py-0.5 font-bold rounded-xs uppercase tracking-wide"
+                            >Pindahan</span
+                          >
+                        </td>
+                        <td
+                          class="p-4 font-bold text-amber-900 border-t border-amber-100"
+                        >
+                          <span class="text-red-600">Muhamad Thaherudin</span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          class="p-4 font-bold text-teal-900 uppercase"
+                          rowspan="3"
+                        >
+                          Sabtu
+                        </td>
+                        <td class="p-4 whitespace-nowrap">10.00 - 12.00</td>
+                        <td class="p-4">C.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Analisis dan Perancangan Sistem Informasi
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Astari /
+                          <span class="text-red-600">Muhamad Thaherudin</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="p-4 whitespace-nowrap border-t border-gray-100"
+                        >
+                          13.00 - 15.00
+                        </td>
+                        <td class="p-4">C.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Sistem Basis Data Lanjut
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Astari /
+                          <span class="text-red-600">Syaiful Bachri</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="p-4 whitespace-nowrap border-t border-gray-100"
+                        >
+                          15.45 - 17.45
+                        </td>
+                        <td class="p-4">C.103</td>
+                        <td class="p-4 text-center">
+                          <span
+                            class="px-2.5 py-0.5 bg-teal-100 text-teal-800 font-bold text-xs rounded-full"
+                            >3</span
+                          >
+                        </td>
+                        <td class="p-4 font-semibold text-gray-800">
+                          Internet of Things
+                        </td>
+                        <td class="p-4 font-medium text-gray-600">
+                          Taufiqurrohman /
+                          <span class="text-red-600">Adang Sutisna</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-riwayat" class="tab-panel hidden space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-3">
+              <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                RIWAYAT ABSENSI KELAS
+              </h2>
+            </div>
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center text-gray-500"
+            >
+              <i
+                class="fa-solid fa-clock-rotate-left text-4xl mb-3 text-gray-300"
+              ></i>
+              <p class="font-medium">
+                Belum ada riwayat absensi yang tersimpan untuk hari ini.
+              </p>
+              <p class="text-xs text-gray-400 mt-1">
+                Data akan muncul di sini setelah Anda menekan tombol "Kirim
+                Kehadiran".
+              </p>
+            </div>
+          </div>
+
+          <div id="panel-mahasiswa" class="tab-panel hidden space-y-12">
+            <div class="space-y-4">
+              <div class="border-l-4 border-indigo-600 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  MANAJEMEN DATA MAHASISWA (IF)
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr
+                        class="bg-gray-50 text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-12 text-center">No</th>
+                        <th class="p-4">NPM / NIM</th>
+                        <th class="p-4">Nama Mahasiswa</th>
+                        <th class="p-4">Prodi</th>
+                        <th class="p-4 text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      id="tbody-mhs-if"
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    ></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-teal-500 pl-3">
+                <h2 class="text-xl font-black text-gray-800 tracking-tight">
+                  MANAJEMEN DATA MAHASISWA (SI)
+                </h2>
+              </div>
+              <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr
+                        class="bg-gray-50 text-gray-400 text-xs font-semibold uppercase border-b border-gray-100"
+                      >
+                        <th class="p-4 w-12 text-center">No</th>
+                        <th class="p-4">NPM / NIM</th>
+                        <th class="p-4">Nama Mahasiswa</th>
+                        <th class="p-4">Prodi</th>
+                        <th class="p-4 text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      id="tbody-mhs-si"
+                      class="text-sm divide-y divide-gray-100 text-gray-700"
+                    ></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Database Array Statis Mahasiswa
+      const mhsIF = [
+        { nim: "525241001", nama: "ACHMAD DANY FADLY" },
+        { nim: "525241002", nama: "AHMAD DZAKKI HIDAYAT" },
+        { nim: "525241003", nama: "AHMAD LABIB HABBADZA" },
+        { nim: "525241005", nama: "AJI SATRIO" },
+        { nim: "525241006", nama: "ARINI AULIA" },
+        { nim: "525241009", nama: "DENI CANDRA SETIAWAN" },
+        { nim: "525241011", nama: "IKLAL FAUZAN" },
+        { nim: "525241012", nama: "KEISYA SALMA FAJAR" },
+        { nim: "525241014", nama: "M. RIFKY ADITIYA PUTRA" },
+        { nim: "525241016", nama: "MOCH AZIR FADILA" },
+        { nim: "525241018", nama: "NAZRUL IBRAHIM HUSEN" },
+        { nim: "525241019", nama: "SALMAN ALFARISI" },
+        { nim: "525241021", nama: "SYAHDAN FRAHIRA" },
+        { nim: "525241023", nama: "MORELLO ANDARU PRADITYA" },
+        { nim: "525247001", nama: "MUHAMMAD SYEKHAN RAMADHAN" },
+      ];
+
+      const mhsSI = [
+        { nim: "515241003", nama: "ANDIKA PUTRA KHARISMA" },
+        { nim: "515241005", nama: "DZAKWAN AVIE RAHMANI" },
+        { nim: "515241006", nama: "FARREL ADWITIYA AZKA" },
+        { nim: "515241007", nama: "GHAIDA HURIN RAHMATIKA" },
+        { nim: "515241008", nama: "GILANG ALAMSYAH" },
+        { nim: "515241009", nama: "IMELDA" },
+        { nim: "515241010", nama: "KAKA NURUL PAJRI" },
+        { nim: "515241012", nama: "MUHAMAD ADIB AFLAH" },
+        { nim: "515241014", nama: "MUHAMAD RASYA FIRDAUS" },
+        { nim: "515241015", nama: "RANGGA RIHARJA" },
+        { nim: "515241016", nama: "SAIFUDDIN SALMAN HABIBIE" },
+        { nim: "515241017", nama: "SHABRINA NURYANI WIJAYA" },
+        { nim: "515241020", nama: "HAIKAL DWI AZIZ" },
+        { nim: "515241021", nama: "AZWA KURENDRA PUTRA GAMMA" },
+        { nim: "515241022", nama: "NURAENI" },
+      ];
+
+      window.onload = function () {
+        renderInputTabel();
+        renderMahasiswaTabel();
+      };
+
+      function switchTab(tabName) {
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((panel) => panel.classList.add("hidden"));
+        document.getElementById("panel-" + tabName).classList.remove("hidden");
+
+        const buttons = ["dashboard", "jadwal", "riwayat", "mahasiswa"];
+        buttons.forEach((btn) => {
+          const el = document.getElementById("btn-" + btn);
+          el.className =
+            "w-full flex items-center gap-3 px-4 py-3 text-indigo-200 hover:bg-indigo-800 hover:text-white rounded-lg transition text-left cursor-pointer";
+        });
+
+        document.getElementById("btn-" + tabName).className =
+          "w-full flex items-center gap-3 px-4 py-3 bg-indigo-800 text-white font-medium rounded-lg transition text-left cursor-pointer";
+      }
+
+      function renderInputTabel() {
+        const tbodyIF = document.getElementById("tbody-input-if");
+        const tbodySI = document.getElementById("tbody-input-si");
+
+        tbodyIF.innerHTML = mhsIF
+          .map(
+            (mhs, idx) => `
+          <tr class="hover:bg-gray-50/70 transition">
+            <td class="p-4 text-center font-medium text-gray-400">${idx + 1}</td>
+            <td class="p-4 font-mono text-gray-600">${mhs.nim}</td>
+            <td class="p-4 font-semibold text-gray-800 uppercase">${mhs.nama}</td>
+            <td class="p-4 text-center">
+              <select data-nim="${mhs.nim}" class="select-status-if px-3 py-1.5 bg-emerald-100 text-emerald-800 font-semibold text-xs rounded-lg border border-emerald-200 focus:outline-none cursor-pointer">
+                <option value="Hadir" selected>Hadir</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Alpa">Alpa</option>
+              </select>
+            </td>
+          </tr>
+        `,
+          )
+          .join("");
+
+        tbodySI.innerHTML = mhsSI
+          .map(
+            (mhs, idx) => `
+          <tr class="hover:bg-gray-50/70 transition">
+            <td class="p-4 text-center font-medium text-gray-400">${idx + 1}</td>
+            <td class="p-4 font-mono text-gray-600">${mhs.nim}</td>
+            <td class="p-4 font-semibold text-gray-800 uppercase">${mhs.nama}</td>
+            <td class="p-4 text-center">
+              <select data-nim="${mhs.nim}" class="select-status-si px-3 py-1.5 bg-emerald-100 text-emerald-800 font-semibold text-xs rounded-lg border border-emerald-200 focus:outline-none cursor-pointer">
+                <option value="Hadir" selected>Hadir</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Alpa">Alpa</option>
+              </select>
+            </td>
+          </tr>
+        `,
+          )
+          .join("");
+      }
+
+      function renderMahasiswaTabel() {
+        const tbodyMhsIF = document.getElementById("tbody-mhs-if");
+        const tbodyMhsSI = document.getElementById("tbody-mhs-si");
+
+        tbodyMhsIF.innerHTML = mhsIF
+          .map(
+            (mhs, idx) => `
+          <tr class="hover:bg-gray-50/70 transition">
+            <td class="p-4 text-center font-medium text-gray-400">${idx + 1}</td>
+            <td class="p-4 font-mono text-gray-600">${mhs.nim}</td>
+            <td class="p-4 font-semibold text-gray-800 uppercase">${mhs.nama}</td>
+            <td class="p-4"><span class="px-2 py-1 bg-indigo-50 text-indigo-900 text-xs font-semibold rounded-md border border-indigo-200">Informatika</span></td>
+            <td class="p-4">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="aksiEdit('${mhs.nama}')" class="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 hover:bg-amber-500 hover:text-white rounded-md border border-amber-200 transition cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="aksiHapus('${mhs.nama}')" class="px-2 py-1 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-500 hover:text-white rounded-md border border-rose-200 transition cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("");
+
+        tbodyMhsSI.innerHTML = mhsSI
+          .map(
+            (mhs, idx) => `
+          <tr class="hover:bg-gray-50/70 transition">
+            <td class="p-4 text-center font-medium text-gray-400">${idx + 1}</td>
+            <td class="p-4 font-mono text-gray-600">${mhs.nim}</td>
+            <td class="p-4 font-semibold text-gray-800 uppercase">${mhs.nama}</td>
+            <td class="p-4"><span class="px-2 py-1 bg-teal-50 text-teal-900 text-xs font-semibold rounded-md border border-teal-200">Sistem Informasi</span></td>
+            <td class="p-4">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="aksiEdit('${mhs.nama}')" class="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 hover:bg-amber-500 hover:text-white rounded-md border border-amber-200 transition cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="aksiHapus('${mhs.nama}')" class="px-2 py-1 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-500 hover:text-white rounded-md border border-rose-200 transition cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("");
+      }
+
+      function kirimKehadiran(prodi) {
+        let kelasKunci =
+          prodi === "Informatika" ? ".select-status-if" : ".select-status-si";
+        let daftarDropdown = document.querySelectorAll(kelasKunci);
+        let rekap = { Hadir: 0, Izin: 0, Sakit: 0, Alpa: 0 };
+
+        daftarDropdown.forEach((select) => {
+          rekap[select.value]++;
+        });
+
+        alert(
+          `BERHASIL KIRIM DATA!\n\nProdi: Data Kehadiran ${prodi}\nRekapitulasi:\n- Hadir: ${rekap.Hadir}\n- Izin: ${rekap.Izin}\n- Sakit: ${rekap.Sakit}\n- Alpa: ${rekap.Alpa}`,
+        );
+
+        const panelRiwayat = document.getElementById("panel-riwayat");
+        panelRiwayat.innerHTML = `
+          <div class="border-l-4 border-indigo-600 pl-3">
+            <h2 class="text-xl font-black text-gray-800 tracking-tight">RIWAYAT ABSENSI KELAS</h2>
+          </div>
+          <div class="bg-white rounded-2xl shadow-sm border border-emerald-100 p-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-check-double"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800">Kehadiran Kelas ${prodi} Berhasil Dikirim</h4>
+                <p class="text-xs text-gray-400">Dikirim pada Hari Ini jam 18:56 WIB</p>
+              </div>
+            </div>
+            <div class="flex gap-3 text-xs font-bold">
+              <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md">Hadir: ${rekap.Hadir}</span>
+              <span class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-md">Izin: ${rekap.Izin}</span>
+              <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md">Sakit: ${rekap.Sakit}</span>
+              <span class="px-2.5 py-1 bg-rose-50 text-rose-700 rounded-md">Alpa: ${rekap.Alpa}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      function aksiEdit(nama) {
+        alert("Memicu Mode EDIT untuk mahasiswa: " + nama);
+      }
+      function aksiHapus(nama) {
+        if (confirm("Apakah Anda yakin ingin MENGHAPUS data " + nama + "?")) {
+          alert("Data " + nama + " berhasil dihapus.");
+        }
+      }
+    </script>
+  </body>
+</html>

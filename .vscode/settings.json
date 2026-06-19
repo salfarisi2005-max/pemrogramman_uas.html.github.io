@@ -1,0 +1,7 @@
+{
+  "[php]": {
+    // "editor.defaultformater" : "bmewburn"
+    "editor.defaultFormatter": "DEVSENSE.phptools-vscode",
+    "editor.format0nsave": true
+  }
+}

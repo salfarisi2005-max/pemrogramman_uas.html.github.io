@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pusat Materi PKKMB-KT UNILAM 2026</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght=600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              jakarta: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                50: "#f0f6ff",
+                100: "#dbeafe",
+                200: "#bfdbfe",
+                500: "#2563eb",
+                600: "#1d4ed8",
+                700: "#1e40af",
+                900: "#1e3a8a",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Menghilangkan scrollbar default pada filter kategori mobile */
+      .scroller-clean::-webkit-scrollbar {
+        display: none;
+      }
+      .scroller-clean {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Animasi halus hover transition global */
+      .smooth-transition {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+  </head>
+  <body class="bg-brand-50 text-slate-900 font-sans min-h-screen antialiased">
+    <nav
+      class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-brand-100 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-brand-500 to-blue-400 rounded-xl flex items-center justify-center shadow-md shadow-brand-500/20"
+          >
+            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white opacity-95">
+              <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" />
+            </svg>
+          </div>
+          <div>
+            <div
+              class="font-jakarta font-800 text-sm leading-none text-brand-900 uppercase tracking-wider"
+            >
+              PKKMB-KT
+            </div>
+            <div class="font-jakarta text-xs font-700 text-brand-500 mt-0.5">
+              UNILAM 2026
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-2">
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-600 bg-brand-50 text-brand-600 border border-brand-100"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+            </svg>
+            Portal Ruang Belajar Mandiri
+          </span>
+        </div>
+
+        <div
+          class="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-xl p-1 pr-3 cursor-pointer hover:bg-brand-50 hover:border-brand-100 smooth-transition"
+        >
+          <div
+            class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white text-xs font-800 shadow-sm"
+          >
+            MB
+          </div>
+          <div class="hidden sm:block text-left">
+            <div class="text-xs font-700 text-slate-800 leading-tight">
+              Mahasiswa Baru
+            </div>
+            <div class="text-[10px] text-slate-400 font-500">
+              Maba - 202601102
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header
+      class="bg-gradient-to-br from-brand-900 via-brand-700 to-blue-600 relative py-8 md:py-12 text-white overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_50%)]"
+      ></div>
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+      >
+        <div class="max-w-xl">
+          <div
+            class="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1 mb-3"
+          >
+            <span
+              class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"
+            ></span>
+            <span
+              class="text-[10px] font-700 tracking-wider uppercase text-white/90"
+              >LMS & E-Learning Center</span
+            >
+          </div>
+          <h1
+            class="font-jakarta text-2xl sm:text-3xl md:text-4xl font-800 tracking-tight mb-2"
+          >
+            Materi PKKMB-KT UNILAM 2026
+          </h1>
+          <p
+            class="text-white/85 text-xs sm:text-sm leading-relaxed max-w-md font-normal"
+          >
+            Selamat datang di pusat materi akademik. Selesaikan seluruh modul
+            video pembelajaran dan unduh berkas panduan resmi secara mandiri
+            sebelum masa perkuliahan dimulai.
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-3 gap-3 w-full md:w-auto shrink-0 bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-2xl"
+        >
+          <div class="text-center px-1.5">
+            <div
+              class="text-xl md:text-2xl font-800 font-jakarta"
+              id="statTotalVideo"
+            >
+              0
+            </div>
+            <div class="text-[10px] text-white/70 font-500 mt-0.5">
+              Total Video
+            </div>
+          </div>
+          <div class="text-center px-1.5 border-x border-white/10">
+            <div
+              class="text-xl md:text-2xl font-800 font-jakarta"
+              id="statTotalEbook"
+            >
+              0
+            </div>
+            <div class="text-[10px] text-white/70 font-500 mt-0.5">
+              Total E-Book
+            </div>
+          </div>
+          <div class="text-center px-1.5">
+            <div
+              class="text-xl md:text-2xl font-800 font-jakarta"
+              id="statGlobalProgress"
+            >
+              75%
+            </div>
+            <div class="text-[10px] text-white/70 font-500 mt-0.5">
+              Progres Selesai
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section
+        class="bg-white rounded-2xl border border-brand-100 p-4 shadow-sm mb-8"
+      >
+        <div
+          class="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between pb-3 border-b border-slate-100"
+        >
+          <div class="relative flex-1 max-w-md">
+            <span
+              class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4 stroke-slate-400 fill-none"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Cari berdasarkan judul materi atau pemateri..."
+              oninput="handleSearchAndFilter()"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs md:text-sm font-medium focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 smooth-transition"
+            />
+          </div>
+          <div
+            class="text-xs font-600 text-slate-500 bg-slate-50 border border-slate-100 rounded-lg px-3 py-1.5 self-start md:self-auto"
+            id="countBadgeLabel"
+          >
+            Memuat data berkas akademik...
+          </div>
+        </div>
+
+        <div
+          class="flex gap-2 mt-3 overflow-x-auto scroller-clean pb-1 -mx-4 px-4 sm:mx-0 sm:px-0"
+          id="filterChipsContainer"
+        ></div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div class="lg:col-span-2 space-y-8">
+          <section>
+            <div class="flex items-center gap-2.5 mb-4">
+              <div class="w-1.5 h-5 bg-brand-500 rounded-full"></div>
+              <h2
+                class="font-jakarta text-base md:text-lg font-800 text-slate-900 tracking-tight"
+              >
+                Video Materi PKKMB-KT
+              </h2>
+            </div>
+            <div
+              id="videoGridContainer"
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            ></div>
+            <div
+              id="videoEmptyState"
+              class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-200"
+            >
+              <p class="text-xs font-600 text-slate-400">
+                Tidak ada video pembelajaran yang cocok dengan filter pencarian
+                ini.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <div class="flex items-center gap-2.5 mb-4">
+              <div class="w-1.5 h-5 bg-purple-500 rounded-full"></div>
+              <h2
+                class="font-jakarta text-base md:text-lg font-800 text-slate-900 tracking-tight"
+              >
+                E-Book & Panduan PKKMB
+              </h2>
+            </div>
+            <div
+              id="ebookGridContainer"
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            ></div>
+            <div
+              id="ebookEmptyState"
+              class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-200"
+            >
+              <p class="text-xs font-600 text-slate-400">
+                Tidak ada dokumen atau e-book yang cocok dengan filter pencarian
+                ini.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <aside class="space-y-5 lg:sticky lg:top-24">
+          <div
+            class="bg-white rounded-2xl border border-brand-100 p-5 shadow-sm text-center"
+          >
+            <div
+              class="text-[10px] font-800 tracking-wider text-brand-600 uppercase mb-0.5"
+            >
+              Ringkasan LMS
+            </div>
+            <h3 class="font-jakarta text-xs font-700 text-slate-700 mb-4">
+              Kemajuan Pembelajaran Mandiri
+            </h3>
+
+            <div
+              class="relative w-28 h-28 mx-auto mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-full h-full transform -rotate-90"
+                viewBox="0 0 36 36"
+              >
+                <path
+                  class="text-slate-100"
+                  stroke-width="3"
+                  stroke="currentColor"
+                  fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                />
+                <path
+                  class="text-brand-500"
+                  stroke-width="3"
+                  stroke-dasharray="75, 100"
+                  stroke-linecap="round"
+                  stroke="currentColor"
+                  fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                />
+              </svg>
+              <div class="absolute text-center">
+                <div
+                  class="font-jakarta text-xl font-800 text-brand-900 leading-none"
+                >
+                  75%
+                </div>
+                <div class="text-[9px] text-slate-400 font-700 mt-0.5">
+                  Selesai
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="grid grid-cols-3 gap-1 border-t border-slate-100 pt-3 text-center text-xs"
+            >
+              <div>
+                <div class="font-800 text-green-600" id="sideStatDone">0</div>
+                <div class="text-[9px] text-slate-400 font-600">Selesai</div>
+              </div>
+              <div class="border-x border-slate-100">
+                <div class="font-800 text-amber-500" id="sideStatProcess">
+                  0
+                </div>
+                <div class="text-[9px] text-slate-400 font-600">Progres</div>
+              </div>
+              <div>
+                <div class="font-800 text-slate-400" id="sideStatUnstarted">
+                  0
+                </div>
+                <div class="text-[9px] text-slate-400 font-600">Belum</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-brand-100 p-4 shadow-sm"
+          >
+            <h3
+              class="font-jakarta text-[11px] font-800 text-slate-400 uppercase tracking-wider mb-3"
+            >
+              Aktivitas Terakhir
+            </h3>
+            <div class="space-y-3">
+              <div class="flex gap-2.5 items-start text-xs">
+                <div
+                  class="w-5 h-5 rounded bg-green-50 border border-green-100 flex items-center justify-center shrink-0 mt-0.5 text-green-600 font-bold"
+                >
+                  ✓
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-700 text-slate-800 truncate">
+                    Selesai Membaca E-Book PKKMB
+                  </p>
+                  <p class="text-[10px] text-slate-400">10 menit yang lalu</p>
+                </div>
+              </div>
+              <div class="flex gap-2.5 items-start text-xs">
+                <div
+                  class="w-5 h-5 rounded bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 mt-0.5 text-amber-500 font-bold"
+                >
+                  •
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-700 text-slate-800 truncate">
+                    Menonton Tata Tertib Mahasiswa
+                  </p>
+                  <p class="text-[10px] text-slate-400">
+                    Progress 45% • 1 jam lalu
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-gradient-to-br from-brand-900 to-brand-700 text-white rounded-2xl p-4 shadow-sm"
+          >
+            <h3 class="font-jakarta text-xs font-700 mb-1">
+              Download Semua Materi
+            </h3>
+            <p class="text-[11px] text-white/70 leading-relaxed mb-3">
+              Akses langsung folder Google Drive utama untuk mengunduh seluruh
+              materi, video tutorial, dan dokumen SOP secara kolektif.
+            </p>
+            <button
+              id="btnDownloadAll"
+              class="w-full bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-600 py-2.5 rounded-xl smooth-transition flex items-center justify-center gap-2"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4 stroke-white fill-none"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
+                />
+              </svg>
+              Buka Cloud Google Drive
+            </button>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div
+      id="materiDetailsModal"
+      class="fixed inset-0 z-50 overflow-y-auto hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-xl border border-brand-100 flex flex-col transform transition-all scale-95 duration-200"
+        id="modalFrame"
+      >
+        <div
+          class="p-5 bg-gradient-to-r from-brand-900 to-brand-600 text-white relative"
+        >
+          <button
+            onclick="closeModalEngine()"
+            class="absolute top-4 right-4 text-white/70 hover:text-white text-xl font-bold bg-white/10 w-8 h-8 rounded-full flex items-center justify-center smooth-transition"
+          >
+            &times;
+          </button>
+          <span
+            class="text-[9px] uppercase font-800 tracking-widest bg-white/20 px-2.5 py-0.5 rounded-full"
+            id="modalTypeBadge"
+            >FORMAT</span
+          >
+          <h3
+            class="font-jakarta text-base md:text-lg font-800 mt-2 leading-tight"
+            id="modalMainTitle"
+          >
+            Judul Dokumen / Video
+          </h3>
+        </div>
+
+        <div class="p-5 space-y-4 text-xs md:text-sm">
+          <div>
+            <h4
+              class="text-xs font-700 text-slate-400 uppercase tracking-wider mb-1"
+            >
+              Deskripsi Lengkap Materi
+            </h4>
+            <p
+              class="text-slate-600 leading-relaxed font-medium"
+              id="modalDescriptionText"
+            >
+              Keterangan deskripsi isi materi di sini.
+            </p>
+          </div>
+
+          <div
+            class="grid grid-cols-2 gap-3 bg-brand-50 p-3 rounded-xl border border-brand-100 text-xs"
+          >
+            <div>
+              <span class="text-slate-400 block font-500 mb-0.5"
+                >Pemateri / Narasumber</span
+              >
+              <span class="text-slate-800 font-700" id="modalSpeakerName"
+                >Nama Pengisi</span
+              >
+            </div>
+            <div>
+              <span class="text-slate-400 block font-500 mb-0.5"
+                >Estimasi Durasi / Waktu</span
+              >
+              <span class="text-slate-800 font-700" id="modalDurationValue"
+                >0 Menit</span
+              >
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 pt-2" id="modalActionButtonsBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Link default fallback diset ke "#" karena materi fisik belum diupload
+      const GOOGLE_DRIVE_FOLDER_URL = "#";
+
+      // Struktur Data Kategori Filter Navigasi
+      const SKEMA_KATEGORI = [
+        { id: "semua", label: "Semua" },
+        { id: "video", label: "Video Materi" },
+        { id: "ebook", label: "E-Book" },
+        { id: "akademik", label: "Akademik" },
+        { id: "keuangan", label: "Keuangan" },
+        { id: "lkms", label: "LKMS" },
+        { id: "tatib", label: "Tata Tertib" },
+        { id: "organisasi", label: "Organisasi" },
+        { id: "profil", label: "Profil Kampus" },
+      ];
+
+      // Koleksi Master Data Objek Video (Link diset ke "#")
+      const videoMateri = [
+        {
+          id: "vid-1",
+          tipe: "video",
+          judul: " Judul Video",
+          deskripsi:
+            "Membahas regulasi perkuliahan dasar, tata cara pengisian kartu rencana studi (KRS) online, beban SKS, kriteria kelulusan mahasiswa, dan peran dosen wali akademik.",
+          pemateri: "#",
+          durasi: "45 Menit",
+          youtube: "#",
+          thumbnail: "from-blue-600 to-indigo-800",
+          progress: 100,
+          tags: ["video", "akademik"],
+        },
+        {
+          id: "vid-2",
+          tipe: "video",
+          judul: "#",
+          deskripsi:
+            "Panduan lengkap kedisiplinan maba di area kampus, hak proteksi mahasiswa, tata cara penyampaian aspirasi, serta sanksi administratif jika melakukan pelanggaran.",
+          pemateri: "#",
+          durasi: "35 Menit",
+          youtube: "#",
+          thumbnail: "from-amber-600 to-orange-700",
+          progress: 45,
+          tags: ["video", "tatib"],
+        },
+        {
+          id: "vid-3",
+          tipe: "video",
+          judul: "#",
+          deskripsi:
+            "Penjelasan teknis mekanisme validasi bank, prosedur pengajuan penangguhan/cicilan dana UKT semester ganjil, dan syarat pendaftaran beasiswa prestasi.",
+          pemateri: "#",
+          durasi: "28 Menit",
+          youtube: "#",
+          thumbnail: "from-emerald-600 to-teal-700",
+          progress: 0,
+          tags: ["video", "keuangan"],
+        },
+        {
+          id: "vid-4",
+          tipe: "video",
+          judul: "#",
+          deskripsi:
+            "Membentuk jiwa kepemimpinan mahasiswa berkarakter, teknik manajemen konflik intra-kampus, retorika persidangan, dan penyusunan rancangan kerja organisasi.",
+          pemateri: "#",
+          durasi: "60 Menit",
+          youtube: "#",
+          thumbnail: "from-cyan-600 to-blue-700",
+          progress: 15,
+          tags: ["video", "lkms"],
+        },
+        {
+          id: "vid-5",
+          tipe: "video",
+          judul: "#",
+          deskripsi:
+            "Tur virtual menelusuri lab komputer, gedung rektorat, perpustakaan pusat, fasilitas olahraga, serta mengenali jajaran struktur pimpinan universitas.",
+          pemateri: "#",
+          durasi: "20 Menit",
+          youtube: "#",
+          thumbnail: "from-purple-600 to-pink-700",
+          progress: 100,
+          tags: ["video", "profil"],
+        },
+        {
+          id: "vid-6",
+          tipe: "video",
+          judul: "#",
+          deskripsi:
+            "Pengenalan lembaga tinggi eksekutif dan legislatif mahasiswa tingkat universitas serta wadah pengembangan bakat minat.",
+          pemateri: "#",
+          durasi: "30 Menit",
+          youtube: "#",
+          thumbnail: "from-indigo-600 to-purple-800",
+          progress: 0,
+          tags: ["video", "organisasi"],
+        },
+      ];
+
+      // Koleksi Master Data Objek E-Book (Link diset ke "#")
+      const ebookMateri = [
+        {
+          id: "doc-1",
+          tipe: "ebook",
+          judul: "Panduan Layanan Akademik & Kemahasiswaan",
+          deskripsi:
+            "Panduan layanan akademik dan kemahasiswaan yang mencakup proses registrasi mahasiswa, pengisian KRS, pengelolaan nilai, cuti akademik, hingga berbagai layanan administrasi mahasiswa.",
+          pemateri: "#",
+          durasi: "15 Menit Baca",
+          pdf: "#",
+          fileSize: "4.2 MB",
+          updatedAt: "18 Juni 2026",
+          tags: ["ebook", "akademik"],
+        },
+        {
+          id: "doc-2",
+          tipe: "ebook",
+          judul: "Paduan Administrasi Umum Kampus",
+          deskripsi:
+            "Materi pengenalan tugas dan fungsi Biro Administrasi Umum yang meliputi pengelolaan sarana prasarana, tata usaha, layanan umum kampus, serta administrasi kelembagaan.",
+          pemateri: "#",
+          durasi: "15 Menit Baca",
+          pdf: "#",
+          fileSize: "3.1 MB",
+          updatedAt: "18 Juni 2026",
+          tags: ["ebook", "profil"],
+        },
+        {
+          id: "doc-3",
+          tipe: "ebook",
+          judul: "Panduan Sistem Keuangan Mahasiswa",
+          deskripsi:
+            "Panduan sistem keuangan mahasiswa yang membahas pembayaran UKT, registrasi keuangan, mekanisme beasiswa, serta berbagai layanan administrasi keuangan di lingkungan universitas.",
+          pemateri: "#",
+          durasi: "15 Menit Baca",
+          pdf: "#",
+          fileSize: "2.5 MB",
+          updatedAt: "15 Juni 2026",
+          tags: ["ebook", "keuangan"],
+        },
+        {
+          id: "doc-4",
+          tipe: "ebook",
+          judul: "Panduan LKMS Mahasiswa Baru",
+          deskripsi:
+            "Materi pengembangan keterampilan manajemen mahasiswa yang bertujuan membentuk karakter kepemimpinan, kemampuan bekerja sama, komunikasi efektif, serta pengelolaan kegiatan kemahasiswaan.",
+          pemateri: "#",
+          durasi: "15 Menit Baca",
+          pdf: "#",
+          fileSize: "1.8 MB",
+          updatedAt: "12 Juni 2026",
+          tags: ["ebook", "lkms"],
+        },
+        {
+          id: "doc-5",
+          tipe: "ebook",
+          judul: "Perpustakaan",
+          deskripsi:
+            "Kumpulan berkas Standar Operasional Prosedur penunjang administrasi kemahasiswaan, validasi berkas KRS, dan birokrasi program studi.",
+          pemateri: "Biro Administrasi Akademik",
+          durasi: "50 Menit Baca",
+          pdf: "#",
+          fileSize: "2.9 MB",
+          updatedAt: "18 Juni 2026",
+          tags: ["ebook", "akademik"],
+        },
+      ];
+
+      // Global Master States Runtime
+      const GABUNGAN_MASTER_DATA = [...videoMateri, ...ebookMateri];
+      let filterKategoriAktif = "semua";
+
+      // 1. INITIALIZE FILTER CHIPS (Kategori Filter Render)
+      function renderFilterChipsContainer() {
+        const targetBox = document.getElementById("filterChipsContainer");
+        targetBox.innerHTML = SKEMA_KATEGORI.map((cat) => {
+          const checkActive = cat.id === filterKategoriAktif;
+          const styleClass = checkActive
+            ? "bg-brand-500 text-white shadow-sm border-brand-500"
+            : "bg-slate-50 text-slate-600 hover:bg-slate-100 border-slate-200";
+          return `
+          <button onclick="switchCategoryEngine('${cat.id}')" 
+            class="px-4 py-2 rounded-xl text-xs font-600 border smooth-transition whitespace-nowrap ${styleClass}">
+            ${cat.label}
+          </button>
+        `;
+        }).join("");
+      }
+
+      function switchCategoryEngine(idKategori) {
+        filterKategoriAktif = idKategori;
+        renderFilterChipsContainer();
+        handleSearchAndFilter();
+      }
+
+      // 2. CORE SEARCH & FILTER ENGINE
+      function handleSearchAndFilter() {
+        const keyword = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+
+        const filteredResults = GABUNGAN_MASTER_DATA.filter((item) => {
+          const isMatchCategory =
+            filterKategoriAktif === "semua" ||
+            item.tags.includes(filterKategoriAktif);
+          const isMatchKeyword =
+            !keyword ||
+            item.judul.toLowerCase().includes(keyword) ||
+            item.pemateri.toLowerCase().includes(keyword);
+          return isMatchCategory && isMatchKeyword;
+        });
+
+        const videoFiltered = filteredResults.filter((i) => i.tipe === "video");
+        const ebookFiltered = filteredResults.filter((i) => i.tipe === "ebook");
+
+        generateVideoCardsUI(videoFiltered);
+        generateEbookCardsUI(ebookFiltered);
+
+        document.getElementById("countBadgeLabel").innerText =
+          `Menampilkan ${filteredResults.length} Hasil Pencarian`;
+      }
+
+      // 3. GENERATE VIDEO CARDS LOGIC
+      function generateVideoCardsUI(items) {
+        const container = document.getElementById("videoGridContainer");
+        const emptyState = document.getElementById("videoEmptyState");
+
+        if (items.length === 0) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+        emptyState.classList.add("hidden");
+
+        container.innerHTML = items
+          .map((v) => {
+            const isDone = v.progress === 100;
+            const progressColor = isDone ? "bg-green-500" : "bg-brand-500";
+            return `
+          <div class="bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-md smooth-transition flex flex-col justify-between group">
+            <div class="h-32 bg-gradient-to-br ${v.thumbnail} relative flex items-center justify-center p-4">
+              <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 group-hover:scale-110 smooth-transition z-10">
+                <svg viewBox="0 0 24 24" class="w-4 h-4 fill-white ml-0.5"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 text-[9px] font-700 px-2 py-0.5 rounded backdrop-blur-md bg-black/40 text-white">
+                ${v.durasi}
+              </span>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between gap-4">
+              <div>
+                <h3 class="font-jakarta text-xs font-800 text-slate-800 leading-snug line-clamp-2 group-hover:text-brand-600 smooth-transition">${v.judul}</h3>
+                <p class="text-[10px] text-slate-400 font-500 mt-1">Narasumber: <span class="font-700 text-slate-600">${v.pemateri}</span></p>
+              </div>
+              <div class="space-y-2.5">
+                <div>
+                  <div class="flex items-center justify-between text-[9px] font-700 mb-1">
+                    <span class="text-slate-400">Progres Menonton</span>
+                    <span class="${isDone ? "text-green-600" : "text-brand-500"}">${v.progress}%</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full ${progressColor} smooth-transition" style="width: ${v.progress}%"></div>
+                  </div>
+                </div>
+                <button onclick="triggerDetailModalEngine('${v.id}')" 
+                  class="w-full text-center text-[11px] font-700 py-2 rounded-xl border border-brand-500/20 text-brand-500 bg-brand-50 hover:bg-brand-500 hover:text-white smooth-transition">
+                  Tonton Materi
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+      }
+
+      // 4. GENERATE E-BOOK CARDS LOGIC
+      function generateEbookCardsUI(items) {
+        const container = document.getElementById("ebookGridContainer");
+        const emptyState = document.getElementById("ebookEmptyState");
+
+        if (items.length === 0) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+        emptyState.classList.add("hidden");
+
+        container.innerHTML = items
+          .map((doc) => {
+            const hasFile = doc.pdf && doc.pdf !== "#";
+            return `
+          <div class="bg-white rounded-2xl border border-brand-100 p-4 shadow-sm hover:shadow-md smooth-transition flex gap-3.5 group">
+            <div class="w-11 h-14 shrink-0 rounded-xl border bg-purple-50 border-purple-100 text-purple-600 font-jakarta flex flex-col items-center justify-center shadow-sm">
+              <div class="text-[9px] font-800 leading-none tracking-wider">PDF</div>
+              <svg viewBox="0 0 24 24" class="w-4 h-4 fill-none stroke-current mt-1.5" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col justify-between">
+              <div>
+                <h3 class="font-jakarta text-xs font-800 text-slate-800 leading-tight line-clamp-2 group-hover:text-purple-600 smooth-transition">${doc.judul}</h3>
+                <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400 font-500">
+                  <span>Ukuran: ${doc.fileSize}</span>
+                  <span>•</span>
+                  <span>Update: ${doc.updatedAt}</span>
+                </div>
+              </div>
+              <div class="flex gap-2 mt-3">
+                <button onclick="triggerDetailModalEngine('${doc.id}')" class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 smooth-transition">Detail</button>
+                ${
+                  hasFile
+                    ? `
+                  <a href="${doc.pdf}" target="_blank" class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-purple-50 border border-purple-200 hover:bg-purple-600 hover:text-white text-purple-600 smooth-transition">Download</a>
+                `
+                    : `
+                  <button disabled class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-slate-100 text-slate-400 cursor-not-allowed">Belum Ada</button>
+                `
+                }
+              </div>
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+      }
+
+      // 5. INTERACTIVE DETAILS MODAL CONTROL ENGINE
+      function triggerDetailModalEngine(idItem) {
+        const targetObj = GABUNGAN_MASTER_DATA.find((x) => x.id === idItem);
+        if (!targetObj) return;
+
+        document.getElementById("modalMainTitle").innerText = targetObj.judul;
+        document.getElementById("modalDescriptionText").innerText =
+          targetObj.deskripsi;
+        document.getElementById("modalSpeakerName").innerText =
+          targetObj.pemateri;
+        document.getElementById("modalDurationValue").innerText =
+          targetObj.durasi;
+
+        const badgeUI = document.getElementById("modalTypeBadge");
+        const actionBoxUI = document.getElementById("modalActionButtonsBox");
+
+        if (targetObj.tipe === "video") {
+          badgeUI.innerText = "Format: Video Pembelajaran";
+          badgeUI.className =
+            "text-[9px] uppercase font-800 tracking-wider bg-blue-500/20 text-blue-100 px-3 py-1 rounded-full";
+
+          if (targetObj.youtube !== "#") {
+            actionBoxUI.innerHTML = `
+            <a href="${targetObj.youtube}" target="_blank" class="w-full text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-700 py-2.5 px-4 rounded-xl shadow-md smooth-transition">
+              Buka & Tonton Video di YouTube
+            </a>
+          `;
+          } else {
+            actionBoxUI.innerHTML = `
+            <button disabled class="w-full text-center bg-slate-200 text-slate-400 text-xs font-700 py-2.5 px-4 rounded-xl cursor-not-allowed">
+              Video Belum Tersedia
+            </button>
+          `;
+          }
+        } else {
+          badgeUI.innerText = "Format: E-Book & Dokumen PDF";
+          badgeUI.className =
+            "text-[9px] uppercase font-800 tracking-wider bg-purple-500/20 text-purple-100 px-3 py-1 rounded-full";
+
+          if (targetObj.pdf !== "#") {
+            actionBoxUI.innerHTML = `
+            <a href="${targetObj.pdf}" target="_blank" class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white text-xs font-700 py-2.5 px-4 rounded-xl shadow-md smooth-transition">
+              Buka & Unduh Berkas Panduan (${targetObj.fileSize})
+            </a>
+          `;
+          } else {
+            actionBoxUI.innerHTML = `
+            <button disabled class="w-full text-center bg-slate-200 text-slate-400 text-xs font-700 py-2.5 px-4 rounded-xl cursor-not-allowed">
+              Materi Belum Tersedia
+            </button>
+          `;
+          }
+        }
+
+        const modalElement = document.getElementById("materiDetailsModal");
+        modalElement.classList.remove("hidden");
+        modalElement.classList.add("flex");
+      }
+
+      function closeModalEngine() {
+        const modalElement = document.getElementById("materiDetailsModal");
+        modalElement.classList.add("hidden");
+        modalElement.classList.remove("flex");
+      }
+
+      // 6. POPULATE SIDEBAR QUICK-LIST & STATS AUTOMATION
+      function initializeSidebarAndHeaderStats() {
+        document.getElementById("statTotalVideo").innerText =
+          videoMateri.length;
+        document.getElementById("statTotalEbook").innerText =
+          ebookMateri.length;
+
+        const doneCount = videoMateri.filter((v) => v.progress === 100).length;
+        const processCount = videoMateri.filter(
+          (v) => v.progress > 0 && v.progress < 100,
+        ).length;
+        const unstartedCount =
+          videoMateri.filter((v) => v.progress === 0).length +
+          ebookMateri.length;
+
+        document.getElementById("sideStatDone").innerText = doneCount;
+        document.getElementById("sideStatProcess").innerText = processCount;
+        document.getElementById("sideStatUnstarted").innerText = unstartedCount;
+
+        // Click event download kolektif sidebar
+        document.getElementById("btnDownloadAll").onclick = () => {
+          if (GOOGLE_DRIVE_FOLDER_URL !== "#") {
+            window.open(GOOGLE_DRIVE_FOLDER_URL, "_blank");
+          } else {
+            alert("Folder Cloud utama belum tersedia.");
+          }
+        };
+
+        // Populate Video Terbaru Sidebar (2 baris terakhir)
+        const latestVideos = videoMateri.slice(-2).reverse();
+        document.getElementById("sidebarLatestVideos").innerHTML = latestVideos
+          .map(
+            (v) => `
+        <div onclick="triggerDetailModalEngine('${v.id}')" class="p-2 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 cursor-pointer flex gap-2 items-center smooth-transition">
+          <div class="w-3 h-3 rounded-full bg-brand-500 shrink-0"></div>
+          <p class="text-[11px] font-600 text-slate-700 truncate flex-1">${v.judul}</p>
+        </div>
+      `,
+          )
+          .join("");
+
+        // Populate E-Book Terbaru Sidebar (2 baris terakhir)
+        const latestEbooks = ebookMateri.slice(-2).reverse();
+        document.getElementById("sidebarLatestEbooks").innerHTML = latestEbooks
+          .map(
+            (doc) => `
+        <div onclick="triggerDetailModalEngine('${doc.id}')" class="p-2 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 cursor-pointer flex gap-2 items-center smooth-transition">
+          <div class="w-3 h-3 rounded-full bg-purple-500 shrink-0"></div>
+          <p class="text-[11px] font-600 text-slate-700 truncate flex-1">${doc.judul}</p>
+        </div>
+      `,
+          )
+          .join("");
+      }
+
+      // SYSTEM RUNNER ON LOAD
+      renderFilterChipsContainer();
+      handleSearchAndFilter();
+      initializeSidebarAndHeaderStats();
+    </script>
+  </body>
+</html>

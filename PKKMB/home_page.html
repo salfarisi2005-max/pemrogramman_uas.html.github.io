@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>PKKMB-KT UNILAM 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============ TOKENS (sama persis dengan dashboard) ============ */
+      :root {
+        --navy-900: #152159;
+        --navy-700: #1e3a8f;
+        --navy-600: #2a4bb0;
+        --teal-600: #0f8a8c;
+        --teal-500: #16a0a1;
+        --teal-tint: #e2f3f2;
+        --lime-500: #a9c73b;
+        --lime-tint: #f2f6e0;
+        --navy-tint: #e6e9f6;
+
+        --bg: #f2f4fa;
+        --surface: #ffffff;
+        --surface-muted: #e8ebf6;
+        --border: #e1e5f1;
+
+        --ink-900: #1b2238;
+        --ink-600: #5b6175;
+        --ink-400: #8d92a6;
+
+        --radius-lg: 28px;
+        --radius-md: 18px;
+        --radius-sm: 13px;
+
+        --shadow-card:
+          0 2px 14px rgba(21, 33, 89, 0.07), 0 1px 2px rgba(21, 33, 89, 0.05);
+        --shadow-pop: 0 10px 24px rgba(21, 33, 89, 0.16);
+
+        --font-display: "Lora", serif;
+        --font-sans: "Plus Jakarta Sans", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      body {
+        background: var(--bg);
+        font-family: var(--font-sans);
+        color: var(--ink-900);
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      svg {
+        display: block;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--teal-600);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+
+      /* ============ NAVBAR ============ */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px clamp(16px, 5vw, 48px);
+        background: var(--navy-900);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .navbar-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--navy-900);
+        text-align: center;
+        line-height: 1.25;
+        flex-shrink: 0;
+      }
+      .navbar-brand-text strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 14.5px;
+        color: #fff;
+      }
+      .navbar-brand-text span {
+        font-size: 10.5px;
+        color: #aeb6e0;
+        letter-spacing: 0.04em;
+      }
+
+      .navbar-links {
+        display: none;
+        align-items: center;
+        gap: 28px;
+      }
+      .navbar-links a {
+        color: #c7cce8;
+        font-size: 13.5px;
+        font-weight: 600;
+        transition: color 0.15s;
+      }
+      .navbar-links a:hover,
+      .navbar-links a.active {
+        color: #fff;
+      }
+      .navbar-links a.active {
+        border-bottom: 2px solid var(--lime-500);
+        padding-bottom: 2px;
+      }
+
+      .navbar-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--lime-500);
+        color: var(--navy-900);
+        font-family: var(--font-sans);
+        font-weight: 800;
+        font-size: 13.5px;
+        padding: 10px 22px;
+        border-radius: 99px;
+        border: none;
+        cursor: pointer;
+        transition: filter 0.15s;
+      }
+      .navbar-cta:hover {
+        filter: brightness(1.06);
+      }
+      .navbar-cta .ic {
+        width: 16px;
+        height: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .navbar-links {
+          display: flex;
+        }
+      }
+
+      /* ============ HERO ============ */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          160deg,
+          var(--navy-900) 0%,
+          var(--navy-700) 60%,
+          #1b2b72 100%
+        );
+        padding: clamp(48px, 8vw, 96px) clamp(16px, 5vw, 48px)
+          clamp(56px, 10vw, 112px);
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        flex-wrap: wrap;
+      }
+      /* dekoratif arch — sama dengan dashboard */
+      .hero-arch {
+        position: absolute;
+        top: -32px;
+        right: -32px;
+        width: clamp(160px, 30vw, 340px);
+        height: clamp(160px, 30vw, 340px);
+        pointer-events: none;
+        opacity: 0.9;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        min-width: 260px;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(169, 199, 59, 0.15);
+        border: 1px solid rgba(169, 199, 59, 0.35);
+        color: #c8e46a;
+        font-size: 12.5px;
+        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: 99px;
+        margin-bottom: 18px;
+      }
+      .hero-eyebrow .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime-500);
+      }
+      .hero h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(28px, 5vw + 10px, 52px);
+        line-height: 1.15;
+        color: #fff;
+        margin: 0 0 18px;
+        max-width: 520px;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--lime-500);
+      }
+      .hero-sub {
+        font-size: clamp(14px, 1.5vw, 16px);
+        color: #bfc6ea;
+        line-height: 1.7;
+        max-width: 460px;
+        margin: 0 0 32px;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--lime-500);
+        color: var(--navy-900);
+        font-family: var(--font-sans);
+        font-weight: 800;
+        font-size: 14px;
+        padding: 13px 28px;
+        border-radius: 99px;
+        border: none;
+        cursor: pointer;
+        transition: filter 0.15s;
+        box-shadow: var(--shadow-pop);
+      }
+      .btn-primary:hover {
+        filter: brightness(1.06);
+      }
+      .btn-primary .ic {
+        width: 17px;
+        height: 17px;
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: #fff;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: 14px;
+        padding: 13px 28px;
+        border-radius: 99px;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* hero stat card */
+      .hero-card {
+        position: relative;
+        z-index: 1;
+        flex: 0 0 clamp(220px, 28vw, 300px);
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+      }
+      .hero-card-top {
+        width: 100%;
+        height: 110px;
+        border-radius: var(--radius-md);
+        background: linear-gradient(140deg, var(--navy-600), var(--teal-500));
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-card-top .ic-big {
+        width: 44px;
+        height: 44px;
+        color: #fff;
+      }
+      .hero-card h3 {
+        font-family: var(--font-display);
+        font-size: 15px;
+        color: #fff;
+        margin: 0 0 8px;
+      }
+      .hero-card p {
+        font-size: 13px;
+        color: #bfc6ea;
+        margin: 0;
+        line-height: 1.55;
+      }
+      .hero-card-stats {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hstat {
+        flex: 1;
+        text-align: center;
+      }
+      .hstat strong {
+        display: block;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--lime-500);
+      }
+      .hstat span {
+        font-size: 11px;
+        color: #aeb6e0;
+      }
+
+      /* ============ SECTION WRAPPER ============ */
+      .section-wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(40px, 7vw, 80px) clamp(16px, 5vw, 48px);
+      }
+      .section-head {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .section-eyebrow {
+        display: inline-block;
+        color: var(--teal-600);
+        font-size: 12.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+      }
+      .section-head h2 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(22px, 3vw, 34px);
+        color: var(--navy-900);
+        margin: 0 0 14px;
+      }
+      .section-head p {
+        font-size: 15px;
+        color: var(--ink-600);
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* ============ FITUR GRID ============ */
+      .bg-muted {
+        background: var(--surface-muted);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: clamp(10px, 2vw, 18px);
+      }
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: clamp(18px, 3vw, 24px);
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card);
+        border-color: transparent;
+      }
+      .feat-chip {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+      }
+      .feat-chip .ic {
+        width: 23px;
+        height: 23px;
+      }
+      .chip-navy {
+        background: var(--navy-tint);
+        color: var(--navy-700);
+      }
+      .chip-teal {
+        background: var(--teal-tint);
+        color: var(--teal-600);
+      }
+      .chip-lime {
+        background: var(--lime-tint);
+        color: #7c9426;
+      }
+      .feature-card h3 {
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--navy-900);
+        margin: 0 0 8px;
+      }
+      .feature-card p {
+        font-size: 13px;
+        color: var(--ink-600);
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      /* ============ TIMELINE ============ */
+      .timeline {
+        max-width: 620px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 19px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--border);
+      }
+      .timeline-item {
+        display: flex;
+        gap: 22px;
+        margin-bottom: 30px;
+        position: relative;
+      }
+      .timeline-dot {
+        flex: 0 0 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--navy-900);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        z-index: 1;
+        box-shadow: var(--shadow-pop);
+      }
+      .timeline-dot.teal {
+        background: var(--teal-500);
+      }
+      .timeline-dot.lime {
+        background: var(--lime-500);
+        color: var(--navy-900);
+      }
+      .timeline-content {
+        padding-top: 7px;
+      }
+      .timeline-content h4 {
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--navy-900);
+        margin: 0 0 5px;
+      }
+      .timeline-content p {
+        font-size: 13px;
+        color: var(--ink-600);
+        margin: 0 0 5px;
+        line-height: 1.55;
+      }
+      .timeline-date {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--teal-600);
+      }
+
+      /* ============ STATS BAR ============ */
+      .stats-bar {
+        background: var(--navy-900);
+        padding: clamp(32px, 5vw, 56px) clamp(16px, 5vw, 48px);
+      }
+      .stats-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 24px;
+        text-align: center;
+      }
+      .stat-item strong {
+        display: block;
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        color: var(--lime-500);
+      }
+      .stat-item span {
+        font-size: 13px;
+        color: #aeb6e0;
+        font-weight: 600;
+      }
+
+      /* ============ CTA SECTION ============ */
+      .cta-section {
+        background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+        padding: clamp(56px, 8vw, 96px) clamp(16px, 5vw, 48px);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: rgba(169, 199, 59, 0.08);
+        top: -80px;
+        left: -80px;
+        pointer-events: none;
+      }
+      .cta-section::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: rgba(22, 160, 161, 0.1);
+        bottom: -60px;
+        right: -60px;
+        pointer-events: none;
+      }
+      .cta-section h2 {
+        font-family: var(--font-display);
+        font-size: clamp(24px, 4vw, 40px);
+        color: #fff;
+        margin: 0 0 14px;
+        position: relative;
+        z-index: 1;
+      }
+      .cta-section p {
+        font-size: 15px;
+        color: #bfc6ea;
+        max-width: 480px;
+        margin: 0 auto 32px;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+      .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ============ FOOTER ============ */
+      .footer {
+        background: #0d1735;
+        padding: 28px clamp(16px, 5vw, 48px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+      }
+      .footer p {
+        font-size: 13px;
+        color: #4a6a9f;
+        margin: 0;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-links a {
+        font-size: 13px;
+        color: #4a6a9f;
+        transition: color 0.15s;
+      }
+      .footer-links a:hover {
+        color: #aeb6e0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar">
+      <a href="#" class="navbar-brand" aria-label="PKKMB-KT UNILAM Beranda">
+        <div class="navbar-logo">PKK<br />MB</div>
+        <div class="navbar-brand-text">
+          <strong>PKKMB-KT</strong>
+          <span>UNILAM 2026</span>
+        </div>
+      </a>
+
+      <nav class="navbar-links" aria-label="Navigasi utama">
+        <a href="#" class="active">Beranda</a>
+        <a href="#">Tentang</a>
+        <a href="#">Informasi</a>
+        <a href="#">Jadwal</a>
+        <a href="#">Kontak</a>
+      </nav>
+
+      <a href="dashboard.html" class="navbar-cta">
+        Daftar Sekarang
+        <svg
+          class="ic"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <!-- arch dekoratif — persis sama dengan dashboard -->
+      <svg class="hero-arch" viewBox="0 0 200 200" fill="none">
+        <path
+          d="M30 190 V110 C30 75 48 48 75 30 L88 12 L101 30 C128 48 146 75 146 110 V190"
+          stroke="#A9C73B"
+          stroke-opacity=".35"
+          stroke-width="6"
+        />
+        <path
+          d="M50 190 V118 C50 90 63 68 84 53 L94 38 L104 53 C125 68 138 90 138 118 V190"
+          stroke="#16A0A1"
+          stroke-opacity=".4"
+          stroke-width="6"
+        />
+        <path
+          d="M70 190 V126 C70 105 79 88 94 76 L100 66 L106 76 C121 88 130 105 130 126 V190"
+          stroke="#1E3A8F"
+          stroke-opacity=".25"
+          stroke-width="6"
+        />
+      </svg>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="dot"></span>
+          Tahun Akademik 2026
+        </div>
+        <h1>Selamat Datang di<br /><em>PKKMB-KT</em><br />UNILAM 2026</h1>
+        <p class="hero-sub">
+          Platform digital untuk manajemen dan monitoring kegiatan Pengenalan
+          Kehidupan Kampus bagi Mahasiswa Baru Universitas Lambung Mangkurat.
+        </p>
+        <div class="hero-actions">
+          <a href="form_login.html" class="btn-primary">
+            Login Sekarang
+            <svg
+              class="ic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="login_mentor.html" class="btn-primary">
+            Login Mentor
+            <svg
+              class="ic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <svg
+            class="ic-big"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+          </svg>
+        </div>
+        <h3>PKKMB Kampus Terpadu 2026</h3>
+        <p>
+          Pengenalan kehidupan kampus yang komprehensif dan terstruktur untuk
+          mahasiswa baru.
+        </p>
+        <div class="hero-card-stats">
+          <div class="hstat"><strong>husen</strong><span>Mahasiswa</span></div>
+          <div class="hstat"><strong>12</strong><span>Fakultas</span></div>
+          <div class="hstat"><strong>5</strong><span>Hari</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS BAR ============ -->
+    <div class="stats-bar">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <strong>500+</strong><span>Mahasiswa Baru</span>
+        </div>
+        <div class="stat-item"><strong>12</strong><span>Fakultas</span></div>
+        <div class="stat-item">
+          <strong>7</strong><span>Modul Pembekalan</span>
+        </div>
+        <div class="stat-item">
+          <strong>5</strong><span>Hari Kegiatan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FITUR ============ -->
+    <div class="bg-muted">
+      <div class="section-wrap">
+        <div class="section-head">
+          <span class="section-eyebrow">Fitur Platform</span>
+          <h2>Semua yang Kamu Butuhkan</h2>
+          <p>
+            Kelola seluruh rangkaian PKKMB dengan mudah melalui platform digital
+            kami yang terintegrasi.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feat-chip chip-teal">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="8" r="3.4" />
+                <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" />
+              </svg>
+            </span>
+            <h3>Pendaftaran Online</h3>
+            <p>
+              Proses pendaftaran yang cepat dan mudah, tanpa perlu antre secara
+              fisik di kampus.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feat-chip chip-navy">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="4" y="5" width="16" height="16" rx="2" />
+                <path d="M8 3v4M16 3v4M4 9.5h16" />
+              </svg>
+            </span>
+            <h3>Jadwal Kegiatan</h3>
+            <p>
+              Pantau jadwal kegiatan PKKMB secara real-time dan dapatkan
+              notifikasi otomatis.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feat-chip chip-lime">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="5" y="4" width="14" height="17" rx="2" />
+                <path d="M9 3.5h6" />
+                <path d="M8.2 10l1.4 1.4 2.2-2.4" />
+              </svg>
+            </span>
+            <h3>Presensi Digital</h3>
+            <p>
+              Cek kehadiran dan tugas harianmu secara langsung melalui platform
+              tanpa kertas.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feat-chip chip-teal">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5C4.7 20 4 19.3 4 18.5z"
+                />
+                <path
+                  d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"
+                />
+              </svg>
+            </span>
+            <h3>Modul Pembekalan</h3>
+            <p>
+              Akses materi dan e-modul orientasi kapan saja dan di mana saja
+              lewat smartphone.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feat-chip chip-navy">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 3l1.8 3.6L18 7.2l-3 2.9.7 4.1L12 12.3l-3.7 1.9.7-4.1-3-2.9 4.2-.6z"
+                />
+                <path d="M5 21v-5M12 21v-7M19 21v-4" />
+              </svg>
+            </span>
+            <h3>Leaderboard &amp; Poin</h3>
+            <p>
+              Pantau peringkat keaktifanmu dan bersaing sehat dengan mahasiswa
+              lainnya.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feat-chip chip-lime">
+              <svg
+                class="ic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="20" r="1" />
+                <circle cx="20" cy="20" r="1" />
+                <path
+                  d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                />
+              </svg>
+            </span>
+            <h3>Sertifikat Digital</h3>
+            <p>
+              Unduh sertifikat kelulusan PKKMB secara digital setelah semua
+              kegiatan selesai.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TIMELINE ============ -->
+    <div class="section-wrap">
+      <div class="section-head">
+        <span class="section-eyebrow">Alur Kegiatan</span>
+        <h2>Rangkaian PKKMB 2026</h2>
+        <p>
+          Ikuti setiap tahapan kegiatan pengenalan kampus yang telah dirancang
+          secara sistematis.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot lime">1</div>
+          <div class="timeline-content">
+            <h4>Pendaftaran &amp; Registrasi Akun</h4>
+            <p>
+              Daftar akun dan lengkapi data diri melalui platform digital
+              PKKMB-KT.
+            </p>
+            <span class="timeline-date">1 – 15 Agustus 2026</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <h4>Orientasi Kampus</h4>
+            <p>
+              Pengenalan lingkungan kampus, fasilitas, dan unit kegiatan
+              mahasiswa.
+            </p>
+            <span class="timeline-date">18 – 20 Agustus 2026</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot teal">3</div>
+          <div class="timeline-content">
+            <h4>Materi Akademik &amp; Kemahasiswaan</h4>
+            <p>
+              Pembekalan wawasan akademik, aturan kampus, dan pengembangan
+              karakter.
+            </p>
+            <span class="timeline-date">21 – 22 Agustus 2026</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">4</div>
+          <div class="timeline-content">
+            <h4>Games Kreativitas &amp; Poin</h4>
+            <p>
+              Kegiatan interaktif untuk membangun kolaborasi dan kebersamaan
+              antar mahasiswa baru.
+            </p>
+            <span class="timeline-date">22 Agustus 2026</span>
+          </div>
+        </div>
+        <div class="timeline-item" style="margin-bottom: 0">
+          <div class="timeline-dot lime">5</div>
+          <div class="timeline-content">
+            <h4>Wisuda PKKMB</h4>
+            <p>Penutupan resmi dan penyerahan sertifikat kelulusan PKKMB-KT.</p>
+            <span class="timeline-date">23 Agustus 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-section">
+      <h2>Siap Memulai Perjalananmu?</h2>
+      <p>
+        Bergabunglah dengan ribuan mahasiswa baru UNILAM dan mulai pengalaman
+        kampus terbaikmu bersama kami.
+      </p>
+      <div class="cta-buttons">
+        <a href="dashboard.html" class="btn-primary">
+          Daftar Sekarang
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="#" class="btn-outline">Hubungi Panitia</a>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <p>© 2026 PKKMB-KT UNILAM. Semua hak dilindungi.</p>
+      <div class="footer-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+        <a href="#">Bantuan</a>
+      </div>
+    </footer>
+  </body>
+</html>
