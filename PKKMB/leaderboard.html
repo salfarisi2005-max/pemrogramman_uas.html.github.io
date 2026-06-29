@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Statistik & Leaderboard PKKMB UNILAM 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+      :root {
+        --navy-900: #152159;
+        --navy-800: #0d1735;
+        --teal-600: #0f8a8c;
+        --teal-500: #16a0a1;
+        --lime-500: #a9c73b;
+        --font-display: "Lora", serif;
+        --font-sans: "Plus Jakarta Sans", sans-serif;
+      }
+      body {
+        font-family: var(--font-sans);
+        background-color: #f1f5f9;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 5px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="text-slate-800 antialiased min-h-screen p-3 md:p-6 flex items-center justify-center">
+
+    <div class="w-full max-w-md bg-white rounded-[32px] shadow-2xl border border-slate-100 overflow-hidden flex flex-col h-[840px]">
+      
+      <div class="p-5 pb-3 bg-white sticky top-0 z-20">
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-lg font-extrabold text-[#152159] tracking-tight">Statistik & Leaderboard</h1>
+          <button class="text-slate-400 hover:text-slate-600 transition">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-1.5 bg-slate-100 p-1 rounded-xl text-center">
+          <button id="tab-all" onclick="ubahKategori('ALL')" class="bg-[#152159] text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition cursor-pointer">
+            Leaderboard
+          </button>
+          <button id="tab-male" onclick="ubahKategori('L')" class="text-slate-500 hover:text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg transition cursor-pointer">
+            Best Male
+          </button>
+          <button id="tab-female" onclick="ubahKategori('P')" class="text-slate-500 hover:text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg transition cursor-pointer">
+            Best Female
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto custom-scrollbar px-5 pb-5 space-y-6">
+
+        <div id="podium-container" class="pt-8 flex justify-center items-end gap-2 text-center max-w-[340px] mx-auto">
+          </div>
+
+        <div class="space-y-2" id="leaderboard-list">
+          </div>
+
+      </div>
+
+      <div class="p-4 bg-white border-t border-slate-100 sticky bottom-0 z-20">
+        <button id="btn-load-more" onclick="tampilkanSemuaBaris()" class="w-full bg-[#152159] hover:bg-[#0d1735] text-white text-xs font-bold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 cursor-pointer">
+          <span id="text-btn-load">Lihat Semua Peringkat</span>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <script>
+      // 1. DATA MASTER KESELURUHAN (Satu wadah berisi data Cowok (L) dan Cewek (P))
+      const dataMahasiswa = [
+        { nama: "Ricky Maulana", skor: 92, gender: "L" },
+        { nama: "Andi Saputra", skor: 89, gender: "L" },
+        { nama: "Siti Aisyah", skor: 88, gender: "P" },
+        { nama: "Muhammad Farhan", skor: 87, gender: "L" },
+        { nama: "Dinda Aprilia", skor: 86, gender: "P" },
+        { nama: "Fajar Nugroho", skor: 85, gender: "L" },
+        { nama: "Nabila Putri", skor: 84, gender: "P" },
+        { nama: "Eko Prasetyo", skor: 83, gender: "L" },
+        { nama: "Dewi Lestari", skor: 82, gender: "P" },
+        { nama: "Rian Hidayat", skor: 81, gender: "L" },
+        { nama: "Siti Nurjanah", skor: 80, gender: "P" },
+        { nama: "Agus Setiawan", skor: 79, gender: "L" },
+        { nama: "Mega Utami", skor: 78, gender: "P" },
+        { nama: "Salman Alfarisi", skor: 77, gender: "L" },
+        { nama: "Aisyah Nurul Isaa", skor: 76, gender: "P" },
+        { nama: "Hendra Wijaya", skor: 75, gender: "L" },
+        { nama: "Fitriani", skor: 74, gender: "P" },
+        { nama: "Dimas Maulana", skor: 73, gender: "L" },
+        { nama: "Anisa Fitri", skor: 72, gender: "P" }
+      ];
+
+      let kategoriAktif = "ALL";
+      let statusLimit = true; // Membatasi tampilan awal hanya beberapa baris saja
+
+      // 2. FUNGSI UTAMA UNTUK MERENDER EMIT DATA KE LAYAR
+      function renderLeaderboard() {
+        // Urutkan data berdasarkan skor tertinggi ke terendah secara mutlak
+        let dataFilter = [...dataMahasiswa].sort((a, b) => b.skor - a.skor);
+
+        // LOGIKA FILTER GENDER: Jika bukan ALL, saring berdasarkan kriteria gender 'L' atau 'P'
+        if (kategoriAktif !== "ALL") {
+          dataFilter = dataFilter.filter(mhs => mhs.gender === kategoriAktif);
+        }
+
+        // Ambil Juara 1, 2, dan 3 dari hasil filter teratas
+        const juara1 = dataFilter[0] || { nama: "-", skor: 0, gender: "L" };
+        const juara2 = dataFilter[1] || { nama: "-", skor: 0, gender: "L" };
+        const juara3 = dataFilter[2] || { nama: "-", skor: 0, gender: "L" };
+
+        // Render Komponen Podium Atas (Urutan visual di HTML: Juara 2 kiri, Juara 1 tengah, Juara 3 kanan)
+        const podiumContainer = document.getElementById("podium-container");
+        podiumContainer.innerHTML = `
+          <div class="flex-1 flex flex-col items-center">
+            <div class="relative mb-2">
+              <div class="w-14 h-14 rounded-full border-2 border-slate-300 p-0.5 bg-white shadow-md">
+                <div class="w-full h-full rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 overflow-hidden text-xs">
+                  <span>${juara2.gender === 'L' ? '👦' : '👧'}</span>
+                </div>
+              </div>
+              <span class="absolute -bottom-1 -right-1 bg-slate-400 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-white">2</span>
+            </div>
+            <p class="text-xs font-bold text-slate-700 leading-tight truncate w-24">${juara2.nama}</p>
+            <p class="text-[11px] font-extrabold text-[#16a0a1] mt-0.5">${juara2.skor}</p>
+            <div class="w-full bg-gradient-to-t from-slate-100 to-slate-50 border-t border-slate-200/60 rounded-t-xl h-14 mt-2 flex items-center justify-center">
+              <span class="font-display font-black text-2xl text-slate-300">2</span>
+            </div>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center z-10 -translate-y-2">
+            <i data-lucide="crown" class="w-5 h-5 text-amber-500 fill-amber-400 mb-0.5 animate-bounce"></i>
+            <div class="relative mb-2">
+              <div class="w-18 h-18 rounded-full border-4 border-amber-400 p-0.5 bg-white shadow-lg">
+                <div class="w-full h-full rounded-full bg-amber-50 flex items-center justify-center font-bold text-amber-600 overflow-hidden text-xs">
+                  <span>${juara1.gender === 'L' ? '👑' : '👸'}</span>
+                </div>
+              </div>
+              <span class="absolute -bottom-1 -right-1 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white shadow">1</span>
+            </div>
+            <p class="text-xs font-black text-slate-900 leading-tight truncate w-24">${juara1.nama}</p>
+            <p class="text-xs font-black text-amber-600 mt-0.5">${juara1.skor}</p>
+            <div class="w-full bg-gradient-to-t from-amber-100/50 to-amber-50 border-t-2 border-amber-300/40 rounded-t-xl h-22 mt-2 flex items-center justify-center shadow-sm">
+              <span class="font-display font-black text-4xl text-amber-400/70">1</span>
+            </div>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center">
+            <div class="relative mb-2">
+              <div class="w-14 h-14 rounded-full border-2 border-amber-600/40 p-0.5 bg-white shadow-md">
+                <div class="w-full h-full rounded-full bg-amber-50/40 flex items-center justify-center font-bold text-amber-800 overflow-hidden text-xs">
+                  <span>${juara3.gender === 'L' ? '👦' : '👧'}</span>
+                </div>
+              </div>
+              <span class="absolute -bottom-1 -right-1 bg-amber-700/80 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-white">3</span>
+            </div>
+            <p class="text-xs font-bold text-slate-700 leading-tight truncate w-24">${juara3.nama}</p>
+            <p class="text-[11px] font-extrabold text-[#16a0a1] mt-0.5">${juara3.skor}</p>
+            <div class="w-full bg-gradient-to-t from-slate-100 to-slate-50 border-t border-slate-200/60 rounded-t-xl h-10 mt-2 flex items-center justify-center">
+              <span class="font-display font-black text-xl text-slate-300">3</span>
+            </div>
+          </div>
+        `;
+
+        // Render Peringkat Sisa (Peringkat 4 ke bawah)
+        const listContainer = document.getElementById("leaderboard-list");
+        listContainer.innerHTML = "";
+
+        const sisaData = dataFilter.slice(3); // Potong array, ambil dari indeks ke-3 (Peringkat 4) dan seterusnya
+
+        sisaData.forEach((mhs, indeks) => {
+          const nomorPeringkat = indeks + 4;
+          const inisial = mhs.nama.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+
+          // Logika Sembunyikan baris jika status limit aktif (Awal hanya tampilkan 4 baris sisa saja)
+          const kelasHidden = (statusLimit && indeks >= 4) ? "hidden" : "";
+
+          const itemRow = document.createElement("div");
+          itemRow.className = `flex items-center justify-between p-3.5 bg-slate-50/70 rounded-xl border border-slate-100 transition-all ${kelasHidden}`;
+          itemRow.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="w-5 text-center font-mono text-xs font-bold text-slate-400">${nomorPeringkat}</span>
+              <div class="w-8 h-8 rounded-full bg-slate-200 text-xs flex items-center justify-center font-bold text-slate-600">${inisial}</div>
+              <span class="text-xs font-bold text-slate-700">${mhs.nama}</span>
+            </div>
+            <span class="text-xs font-extrabold text-slate-600">${mhs.skor}</span>
+          `;
+          listContainer.appendChild(itemRow);
+        });
+
+        // Kondisi Tombol Footer Load More
+        const btnLoad = document.getElementById("btn-load-more");
+        if (!statusLimit || sisaData.length <= 4) {
+          btnLoad.style.display = "none";
+        } else {
+          btnLoad.style.display = "flex";
+          document.getElementById("text-btn-load").innerText = `Lihat Semua Peringkat (${dataFilter.length})`;
+        }
+
+        // Panggil ulang ikon Lucide agar render svg berjalan lancar
+        lucide.createIcons();
+      }
+
+      // 3. FUNGSI UNTUK MENGATUR INTERAKSI PERPINDAHAN TAB BUTTON
+      function ubahKategori(kategori) {
+        kategoriAktif = kategori;
+        statusLimit = true; // Reset pembatasan tampilan ketika pindah tab
+
+        // Hapus class active dari seluruh tombol
+        document.getElementById("tab-all").className = "text-slate-500 hover:text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg transition cursor-pointer";
+        document.getElementById("tab-male").className = "text-slate-500 hover:text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg transition cursor-pointer";
+        document.getElementById("tab-female").className = "text-slate-500 hover:text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg transition cursor-pointer";
+
+        // Tambahkan styling warna navy aktif untuk tombol terpilih
+        if (kategori === "ALL") {
+          document.getElementById("tab-all").className = "bg-[#152159] text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition cursor-pointer";
+        } else if (kategori === "L") {
+          document.getElementById("tab-male").className = "bg-[#152159] text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition cursor-pointer";
+        } else if (kategori === "P") {
+          document.getElementById("tab-female").className = "bg-[#152159] text-white text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition cursor-pointer";
+        }
+
+        // Jalankan render ulang
+        renderLeaderboard();
+      }
+
+      // 4. FUNGSI JIKA TOMBOL 'LIHAT SEMUA PERINGKAT' DIKLIK
+      function tampilkanSemuaBaris() {
+        statusLimit = false;
+        renderLeaderboard();
+      }
+
+      // Load pertama kali saat jendela browser terbuka
+      window.onload = function () {
+        renderLeaderboard();
+      };
+    </script>
+  </body>
+</html>

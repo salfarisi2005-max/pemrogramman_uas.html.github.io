@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>PKKMB-KT UNILAM 2026</title>
+    <title>Informasi - PKKMB-KT UNILAM 2026</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -232,109 +232,94 @@
         }
       }
 
-      /* ============ HERO ============ */
-      .hero {
-        background-image:
-          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-          url("unilam.jpeg");
-        background-size: cover;
-        background-position: center;
-        min-height: 100vh;
-        padding: clamp(48px, 8vw, 96px) clamp(16px, 5vw, 48px)
-          clamp(56px, 10vw, 112px);
-        display: flex;
-        align-items: center;
-        gap: 48px;
-        flex-wrap: wrap;
+      /* ============ CONTENT SECTION ============ */
+      .content-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: clamp(32px, 5vw, 64px) clamp(16px, 5vw, 48px);
+      }
+      .page-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      .page-header h1 {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 4vw, 42px);
+        color: var(--navy-900);
+        margin: 0 0 12px;
+      }
+      .page-header p {
+        font-size: 16px;
+        color: var(--ink-600);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
       }
 
-      .hero-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        background: rgba(169, 199, 59, 0.15);
-        border: 1px solid rgba(169, 199, 59, 0.35);
-        color: #c8e46a;
-        font-size: 12.5px;
-        font-weight: 700;
-        padding: 5px 14px;
-        border-radius: 99px;
-        margin-bottom: 18px;
+      /* INFO CARD LAYOUT */
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-bottom: 48px;
       }
-      .hero-eyebrow .dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--lime-500);
+      @media (min-width: 768px) {
+        .info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
-      .hero h1 {
-        font-family: var(--font-display);
-        font-weight: 700;
-        font-size: clamp(28px, 5vw + 10px, 52px);
-        line-height: 1.15;
-        color: #fff;
-        margin: 0 0 18px;
-        max-width: 520px;
-      }
-      .hero h1 em {
-        font-style: normal;
-        color: var(--lime-500);
-      }
-      .hero-sub {
-        font-size: clamp(14px, 1.5vw, 16px);
-        color: #bfc6ea;
-        line-height: 1.7;
-        max-width: 460px;
-        margin: 0 0 32px;
-      }
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--lime-500);
-        color: var(--navy-900);
-        font-family: var(--font-sans);
-        font-weight: 800;
-        font-size: 14px;
-        padding: 13px 28px;
-        border-radius: 99px;
-        border: none;
-        cursor: pointer;
-        transition: filter 0.15s;
-        box-shadow: var(--shadow-pop);
-      }
-      .btn-primary:hover {
-        filter: brightness(1.06);
-      }
-      .btn-primary .ic {
-        width: 17px;
-        height: 17px;
-      }
-      .btn-outline {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: transparent;
-        color: #fff;
-        border: 1.5px solid rgba(255, 255, 255, 0.35);
-        font-family: var(--font-sans);
-        font-weight: 700;
-        font-size: 14px;
-        padding: 13px 28px;
-        border-radius: 99px;
-        cursor: pointer;
+      .info-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 28px;
+        box-shadow: var(--shadow-card);
         transition:
-          border-color 0.15s,
-          background 0.15s;
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
       }
-      .btn-outline:hover {
-        border-color: #fff;
-        background: rgba(255, 255, 255, 0.08);
+      .info-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(21, 33, 89, 0.1);
+      }
+      .card-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        letter-spacing: 0.05em;
+      }
+      .badge-urgent {
+        background: #ffebe6;
+        color: #ff3b30;
+      }
+      .badge-general {
+        background: var(--teal-tint);
+        color: var(--teal-600);
+      }
+      .info-card h3 {
+        font-family: var(--font-display);
+        font-size: 20px;
+        color: var(--navy-900);
+        margin: 0 0 12px;
+      }
+      .info-card p {
+        font-size: 14.5px;
+        color: var(--ink-600);
+        line-height: 1.7;
+        margin: 0 0 20px;
+      }
+      .card-meta {
+        font-size: 12.5px;
+        color: var(--ink-400);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
       }
 
       /* ============ CTA SECTION ============ */
@@ -392,6 +377,27 @@
         position: relative;
         z-index: 1;
       }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: #fff;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: 14px;
+        padding: 13px 28px;
+        border-radius: 99px;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .btn-outline:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
 
       /* ============ FOOTER ============ */
       .footer {
@@ -423,7 +429,6 @@
     </style>
   </head>
   <body>
-    <!-- ============ NAVBAR ============ -->
     <header class="navbar">
       <a href="#" class="navbar-brand" aria-label="PKKMB-KT UNILAM Beranda">
         <div class="navbar-logo">
@@ -435,7 +440,6 @@
         </div>
       </a>
 
-      <!-- Tombol Garis Tiga (Hanya muncul di HP) -->
       <button class="menu-toggle" id="menuToggle" aria-label="Buka Menu">
         <span></span>
         <span></span>
@@ -443,72 +447,93 @@
       </button>
 
       <nav class="navbar-links" id="navbarLinks" aria-label="Navigasi utama">
-        <a href="home_page.html" class="active">Beranda</a>
+        <a href="home_page.html">Beranda</a>
         <a href="sejarah.html">Tentang</a>
-        <a href="informasi.html">Informasi</a>
+        <a href="informasi.html" class="active">Informasi</a>
         <a href="jadwal.html">Jadwal</a>
         <a href="kontak.html">Kontak</a>
       </nav>
     </header>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <span class="dot"></span>
-          Tahun Akademik 2026
-        </div>
-        <h1>Selamat Datang di<br /><em>PKKMB-KT</em><br />UNILAM 2026</h1>
-        <p class="hero-sub">
-          Platform digital untuk manajemen dan monitoring kegiatan Pengenalan
-          Kehidupan Kampus bagi Mahasiswa Baru Universitas La Tansa Mashiro.
+    <main class="content-wrapper">
+      <section class="page-header">
+        <h1>Pusat Informasi & Pengumuman</h1>
+        <p>
+          Pantau terus informasi berkala terkait pelaksanaan PKKMB-KT
+          Universitas La Tansa Mashiro 2026 di bawah ini.
         </p>
-        <div class="hero-actions">
-          <a href="login_mahasiswa.html" class="btn-primary">
-            Login Mahasiswa
-            <svg
-              class="ic"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a href="login_mentor.html" class="btn-primary">
-            Login Mentor
-            <svg
-              class="ic"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============ CTA ============ -->
+      <section class="info-grid">
+        <article class="info-card">
+          <span class="card-badge badge-urgent">Penting</span>
+          <h3>Ketentuan Atribut & Pakaian Peserta</h3>
+          <p>
+            Seluruh mahasiswa baru diwajibkan menggunakan kemeja putih polos
+            lengan panjang, celana/rok kain hitam formal, serta atribut resmi
+            yang dibagikan oleh panitia.
+          </p>
+          <div class="card-meta">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Diposting: 20 Juni 2026
+          </div>
+        </article>
+
+        <article class="info-card">
+          <span class="card-badge badge-general">Pengumuman</span>
+          <h3>Pembagian Kelompok & Mentor</h3>
+          <p>
+            Daftar pembagian kelompok besar, gugus, serta kontak mentor
+            pendamping dapat Anda akses langsung setelah melakukan login ke
+            dashboard Mahasiswa.
+          </p>
+          <div class="card-meta">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Diposting: 18 Juni 2026
+          </div>
+        </article>
+      </section>
+    </main>
+
     <section class="cta-section">
       <h2>Siap Memulai Perjalananmu?</h2>
       <p>
         Bergabunglah dengan ribuan mahasiswa baru UNILAM dan mulai pengalaman
         kampus terbaikmu bersama kami.
       </p>
-      <div class="cta-buttons flex items-center justify-center p-2">
-        <a href="#" class="btn-outline">Hubungi Panitia</a>
+      <div class="cta-buttons">
+        <a href="kontak.html" class="btn-outline">Hubungi Panitia</a>
       </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
     <footer class="footer">
       <p>© 2026 PKKMB-KT UNILAM. Semua hak dilindungi.</p>
       <div class="footer-links">
@@ -518,7 +543,6 @@
       </div>
     </footer>
 
-    <!-- ============ SCRIPT LIVE TOGGLE ============ -->
     <script>
       const menuToggle = document.getElementById("menuToggle");
       const navbarLinks = document.getElementById("navbarLinks");

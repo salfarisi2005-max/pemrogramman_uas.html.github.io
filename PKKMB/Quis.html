@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplikasi Kuis Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-100 font-sans text-slate-800 min-h-screen py-10 px-4">
+    <div
+      class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+    >
+      <div class="bg-slate-800 text-white p-6 text-center">
+        <h1 class="text-2xl font-bold tracking-wide underline text">
+          KUIS INTERAKTIF
+        </h1>
+        <p class="text-sm text-slate-300 mt-1">
+          Jawablah 10 pertanyaan di bawah ini dengan benar
+        </p>
+      </div>
+
+      <form id="quizForm" class="p-6 sm:p-8 space-y-8">
+        <div
+          id="questionsContainer"
+          class="space-y-8 divide-y divide-slate-200"
+        ></div>
+
+        <div class="pt-6 text-center">
+          <button
+            type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-200 transform hover:-translate-y-0.5"
+          >
+            Kirim & Lihat Hasil
+          </button>
+        </div>
+      </form>
+
+      <div
+        id="resultSection"
+        class="hidden p-6 sm:p-8 border-t border-slate-200 bg-slate-50 text-center space-y-4"
+      >
+        <h2 class="text-2xl font-bold text-slate-800">Hasil Penilaian Kamu</h2>
+
+        <div
+          class="inline-block bg-indigo-600 text-white rounded-full w-32 h-32 flex flex-col items-center justify-center mx-auto shadow-inner"
+        >
+          <span id="scoreDisplay" class="text-4xl font-extrabold">0</span>
+          <span class="text-xs text-indigo-200 uppercase tracking-wider"
+            >Skor</span
+          >
+        </div>
+
+        <p id="resultSummary" class="text-lg font-medium text-slate-600"></p>
+
+        <button
+          onclick="window.location.reload()"
+          class="mt-2 text-indigo-600 hover:text-indigo-800 font-semibold underline text-sm"
+        >
+          Ulangi Kuis
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // ==========================================
+      // SILAKAN MASUKKAN 10 PERTANYAAN KAMU DI SINI
+      // ==========================================
+      const quizData = [
+        {
+          question: "Apa singkatan dari HTML?",
+          options: [
+            "Hyper Text Markup Language",
+            "High Text Markup Language",
+            "Hyper Text Markdown Language",
+            "Hyperlink and Text Markup Language",
+          ],
+          correctAnswer: 0, // Index dari pilihan jawaban yang benar (0 berarti pilihan pertama)
+        },
+        {
+          question:
+            "Utility class di Tailwind CSS yang digunakan untuk membuat flex container dengan arah vertikal adalah...",
+          options: ["flex-row", "flex-col", "flex-vertex", "display-block"],
+          correctAnswer: 1, // 1 berarti pilihan kedua (flex-col)
+        },
+        {
+          question: "Pertanyaan Nomor 3: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 4: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 5: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 6: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 7: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 8: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 9: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+        {
+          question: "Pertanyaan Nomor 10: Masukkan teks pertanyaanmu di sini.",
+          options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+          correctAnswer: 0,
+        },
+      ];
+
+      // Mendapatkan elemen HTML
+      const container = document.getElementById("questionsContainer");
+      const form = document.getElementById("quizForm");
+      const resultSection = document.getElementById("resultSection");
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      const resultSummary = document.getElementById("resultSummary");
+
+      // Fungsi untuk merender soal ke dalam halaman HTML secara otomatis
+      function renderQuiz() {
+        quizData.forEach((data, qIndex) => {
+          const questionBlock = document.createElement("div");
+          // Beri efek pembatas antar soal kecuali soal pertama
+          questionBlock.className = qIndex === 0 ? "pt-2" : "pt-6";
+
+          // Judul Soal
+          questionBlock.innerHTML = `
+                    <p class="text-base font-semibold text-slate-900 mb-3">
+                        <span class="inline-flex items-center justify-center bg-slate-200 text-slate-700 rounded-md px-2 py-0.5 text-xs font-bold mr-2">${qIndex + 1}</span>
+                        ${data.question}
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-7">
+                        ${data.options
+                          .map(
+                            (option, oIndex) => `
+                            <label class="flex items-center p-3 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 cursor-pointer transition-colors duration-150">
+                                <input type="radio" name="question${qIndex}" value="${oIndex}" required class="w-4 h-4 text-indigo-600 border-slate-300 focus:ring-indigo-500">
+                                <span class="ml-3 text-sm font-medium text-slate-700">${option}</span>
+                            </label>
+                        `,
+                          )
+                          .join("")}
+                    </div>
+                `;
+          container.appendChild(questionBlock);
+        });
+      }
+
+      // Jalankan fungsi render saat halaman dimuat
+      renderQuiz();
+
+      // Logika ketika kuis di-submit (Kirim & Lihat Hasil)
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Mencegah reload halaman bawaan form submit
+
+        let totalBenar = 0;
+
+        quizData.forEach((data, qIndex) => {
+          // Ambil radio button yang dipilih oleh user untuk tiap nomor soal
+          const selectedAnswer = form.querySelector(
+            `input[name="question${qIndex}"]:checked`,
+          );
+
+          if (
+            selectedAnswer &&
+            parseInt(selectedAnswer.value) === data.correctAnswer
+          ) {
+            totalBenar++;
+          }
+        });
+
+        // Menghitung Skor Akhir (Skala 100)
+        const skorAkhir = (totalBenar / quizData.length) * 100;
+
+        // Menampilkan bagian penilaian hasil kuis
+        scoreDisplay.innerText = skorAkhir;
+        resultSummary.innerHTML = `Kamu berhasil menjawab <span class="font-bold text-emerald-600">${totalBenar}</span> dari <span class="font-bold">${quizData.length}</span> soal dengan benar.`;
+
+        resultSection.classList.remove("hidden");
+
+        // Scroll otomatis langsung ke tampilan nilai setelah submit
+        resultSection.scrollIntoView({ behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

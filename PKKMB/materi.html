@@ -240,7 +240,7 @@
             </div>
             <div
               id="videoGridContainer"
-              class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+              class="grid grid-cols-2 gap-3 md:gap-4"
             ></div>
             <div
               id="videoEmptyState"
@@ -508,43 +508,49 @@
       ];
 
       // Koleksi Master Data Objek Video (Link diset ke "#")
+      // Tambahkan path foto thumbnail kamu sendiri di field "thumbnailImg"
+      // Contoh: thumbnailImg: "img/video1.jpg"
+      // Jika dikosongkan ("") maka akan otomatis pakai gradient warna sebagai cadangan
       const videoMateri = [
         {
           id: "vid-1",
           tipe: "video",
-          judul: " Judul Video",
+          judul: " Profil Mas Yule",
           deskripsi:
             "Membahas regulasi perkuliahan dasar, tata cara pengisian kartu rencana studi (KRS) online, beban SKS, kriteria kelulusan mahasiswa, dan peran dosen wali akademik.",
-          pemateri: "#",
+          pemateri: "Mas Yul",
           durasi: "45 Menit",
-          youtube: "#",
-          thumbnail: "from-blue-600 to-indigo-800",
+          youtube: "https://youtu.be/_DnJvrO4V-g?si=NVmlagHhq5z4idiw",
+          thumbnail: "unilam.jpeg",
+          thumbnailImg: "unilam.jpeg",
           progress: 100,
           tags: ["video", "akademik"],
         },
         {
           id: "vid-2",
           tipe: "video",
-          judul: "#",
+          judul: "Sejarah Ambatron",
           deskripsi:
             "Panduan lengkap kedisiplinan maba di area kampus, hak proteksi mahasiswa, tata cara penyampaian aspirasi, serta sanksi administratif jika melakukan pelanggaran.",
-          pemateri: "#",
+          pemateri: "penjualan",
           durasi: "35 Menit",
-          youtube: "#",
-          thumbnail: "from-amber-600 to-orange-700",
+          youtube: "https://youtu.be/biisthYHX3o?si=kSYyGbQ63HTrj8A6",
+          thumbnail: "unilam.jpeg",
+          thumbnailImg: "unilam.png",
           progress: 45,
           tags: ["video", "tatib"],
         },
         {
           id: "vid-3",
           tipe: "video",
-          judul: "#",
+          judul: "kiamat",
           deskripsi:
             "Penjelasan teknis mekanisme validasi bank, prosedur pengajuan penangguhan/cicilan dana UKT semester ganjil, dan syarat pendaftaran beasiswa prestasi.",
-          pemateri: "#",
+          pemateri: "gufron",
           durasi: "28 Menit",
           youtube: "#",
-          thumbnail: "from-emerald-600 to-teal-700",
+          thumbnail: "unilam.jpeg",
+          thumbnailImg: "unilam.png",
           progress: 0,
           tags: ["video", "keuangan"],
         },
@@ -558,6 +564,7 @@
           durasi: "60 Menit",
           youtube: "#",
           thumbnail: "from-cyan-600 to-blue-700",
+          thumbnailImg: "",
           progress: 15,
           tags: ["video", "lkms"],
         },
@@ -571,6 +578,7 @@
           durasi: "20 Menit",
           youtube: "#",
           thumbnail: "from-purple-600 to-pink-700",
+          thumbnailImg: "",
           progress: 100,
           tags: ["video", "profil"],
         },
@@ -584,6 +592,7 @@
           durasi: "30 Menit",
           youtube: "#",
           thumbnail: "from-indigo-600 to-purple-800",
+          thumbnailImg: "",
           progress: 0,
           tags: ["video", "organisasi"],
         },
@@ -728,19 +737,52 @@
           .map((v) => {
             const isDone = v.progress === 100;
             const progressColor = isDone ? "bg-green-500" : "bg-brand-500";
+
+            // Area thumbnail sekarang bisa diklik untuk upload foto sendiri (langsung dari browser).
+            // Selama foto belum diupload, area ini tetap tampil sebagai gradient + ikon play + ajakan upload.
+            // Setelah foto diupload, foto akan tampil penuh dan ada tombol kecil "Ganti" di pojok kanan atas.
+            const hasOwnPhoto = v.thumbnailImg && v.thumbnailImg !== "";
+            const isSavingPhoto = savingPhotoIds.has(v.id);
+            const fileInputId = `fileInput-${v.id}`;
+            const cameraIconSvg = `<svg viewBox="0 0 24 24" class="w-3 h-3 fill-white"><path d="M9 3l-1.5 2H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3.5L15 3H9zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>`;
+            const hiddenFileInput = `<input type="file" id="${fileInputId}" accept="image/*" class="hidden" onchange="handlePhotoUpload(event, '${v.id}')" ${isSavingPhoto ? "disabled" : ""} />`;
+            const savingBadge = isSavingPhoto
+              ? `<span class="absolute top-1.5 left-1.5 z-20 flex items-center gap-1 bg-black/55 text-white text-[9px] font-700 px-2 py-1 rounded-lg">
+                  <svg class="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="9" stroke-opacity="0.3"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
+                  Menyimpan...
+                </span>`
+              : "";
+
+            const thumbnailBlock = hasOwnPhoto
+              ? `
+             <div class="h-24 md:h-32 relative overflow-hidden">
+  <img
+    src="${v.thumbnail}"
+    alt="${v.judul}"
+    class="w-full h-full object-cover"
+  />
+
+  <span class="absolute bottom-2.5 right-2.5 text-[9px] font-700 px-2 py-0.5 rounded backdrop-blur-md bg-black/50 text-white z-10">
+    ${v.durasi}
+  </span>
+</div>
+            `
+              : `
+              <label for="${fileInputId}" class="h-24 md:h-32 bg-gradient-to-br ${v.thumbnail} relative flex flex-col items-center justify-center gap-1.5 p-2 md:p-4 cursor-pointer ${isSavingPhoto ? "opacity-60 pointer-events-none" : ""}">
+                ${savingBadge}                
+                
+                <span class="absolute bottom-2.5 right-2.5 text-[9px] font-700 px-2 py-0.5 rounded backdrop-blur-md bg-black/40 text-white z-10">
+                  ${v.durasi}
+                </span>
+              </label>
+            `;
+
             return `
           <div class="bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-md smooth-transition flex flex-col justify-between group">
-            <div class="h-32 bg-gradient-to-br ${v.thumbnail} relative flex items-center justify-center p-4">
-              <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 group-hover:scale-110 smooth-transition z-10">
-                <svg viewBox="0 0 24 24" class="w-4 h-4 fill-white ml-0.5"><polygon points="5,3 19,12 5,21"/></svg>
-              </div>
-              <span class="absolute bottom-2.5 right-2.5 text-[9px] font-700 px-2 py-0.5 rounded backdrop-blur-md bg-black/40 text-white">
-                ${v.durasi}
-              </span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col justify-between gap-4">
+            ${thumbnailBlock}
+            <div class="p-2 md:p-4 flex-1 flex flex-col justify-between gap-2 md:gap-4">
               <div>
-                <h3 class="font-jakarta text-xs font-800 text-slate-800 leading-snug line-clamp-2 group-hover:text-brand-600 smooth-transition">${v.judul}</h3>
+                <h3 class="font-jakarta text-[11px] md:text-xs font-800 text-slate-800 leading-snug line-clamp-2 group-hover:text-brand-600 smooth-transition">${v.judul}</h3>
                 <p class="text-[10px] text-slate-400 font-500 mt-1">Narasumber: <span class="font-700 text-slate-600">${v.pemateri}</span></p>
               </div>
               <div class="space-y-2.5">
@@ -753,7 +795,7 @@
                     <div class="h-full ${progressColor} smooth-transition" style="width: ${v.progress}%"></div>
                   </div>
                 </div>
-                <button onclick="triggerDetailModalEngine('${v.id}')" 
+                <button onclick="triggerDetailModalEngine('${v.id}')"
                   class="w-full text-center text-[11px] font-700 py-2 rounded-xl border border-brand-500/20 text-brand-500 bg-brand-50 hover:bg-brand-500 hover:text-white smooth-transition">
                   Tonton Materi
                 </button>
@@ -763,6 +805,87 @@
         `;
           })
           .join("");
+      }
+
+      // 3b. HELPER: kompres & resize foto ke max 800px sisi terpanjang (JPEG ~82% quality)
+      // agar ukurannya kecil, cepat dimuat, dan aman di bawah batas penyimpanan.
+      function resizeImageToDataUrl(file, maxDim) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              let { width, height } = img;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              const canvas = document.createElement("canvas");
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, width, height);
+              resolve(canvas.toDataURL("image/jpeg", 0.82));
+            };
+            img.onerror = () => reject(new Error("Gagal memuat gambar."));
+            img.src = e.target.result;
+          };
+          reader.onerror = () => reject(new Error("Gagal membaca file."));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Set berisi id video yang fotonya sedang dalam proses disimpan ke penyimpanan permanen
+      const savingPhotoIds = new Set();
+
+      // 3c. HANDLE PHOTO UPLOAD (klik area thumbnail video -> pilih foto dari perangkat)
+      // Foto disimpan secara PERMANEN & DIBAGIKAN (shared) lewat window.storage, sehingga
+      // siapa pun yang membuka artifact ini akan melihat foto yang sama.
+      async function handlePhotoUpload(event, idItem) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          alert("Mohon pilih file foto (JPG, PNG, atau WebP).");
+          event.target.value = "";
+          return;
+        }
+
+        try {
+          const dataUrl = await resizeImageToDataUrl(file, 800);
+
+          const targetObj = GABUNGAN_MASTER_DATA.find((x) => x.id === idItem);
+          if (targetObj) targetObj.thumbnailImg = dataUrl;
+
+          // Tampilkan foto + badge "Menyimpan..." dulu (optimistic UI), filter & pencarian tetap terjaga
+          savingPhotoIds.add(idItem);
+          handleSearchAndFilter();
+
+          try {
+            const result = await window.storage.set(
+              `thumb:${idItem}`,
+              dataUrl,
+              true,
+            );
+            if (!result) throw new Error("Storage mengembalikan hasil kosong.");
+          } catch (storageErr) {
+            console.error("Gagal menyimpan foto ke storage:", storageErr);
+            alert(
+              "Foto berhasil diupload, tapi gagal disimpan secara permanen. Foto hanya akan terlihat sementara di tab ini.",
+            );
+          } finally {
+            savingPhotoIds.delete(idItem);
+            handleSearchAndFilter();
+          }
+        } catch (processErr) {
+          console.error("Gagal memproses foto:", processErr);
+          alert("Gagal memproses file foto. Silakan coba foto lain.");
+        }
       }
 
       // 4. GENERATE E-BOOK CARDS LOGIC
@@ -781,32 +904,21 @@
           .map((doc) => {
             const hasFile = doc.pdf && doc.pdf !== "#";
             return `
-          <div class="bg-white rounded-2xl border border-brand-100 p-4 shadow-sm hover:shadow-md smooth-transition flex gap-3.5 group">
-            <div class="w-11 h-14 shrink-0 rounded-xl border bg-purple-50 border-purple-100 text-purple-600 font-jakarta flex flex-col items-center justify-center shadow-sm">
-              <div class="text-[9px] font-800 leading-none tracking-wider">PDF</div>
-              <svg viewBox="0 0 24 24" class="w-4 h-4 fill-none stroke-current mt-1.5" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          <div class="bg-white rounded-2xl border border-brand-100 overflow-hidden shadow-sm hover:shadow-md smooth-transition flex gap-3 p-4 group">
+            <div class="w-14 h-16 shrink-0 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm">
+              <svg viewBox="0 0 24 24" class="w-6 h-6 fill-white opacity-90">
+                <path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm10 1.5V9h3.5L14 5.5zM7 13h10v1.5H7V13zm0 3h10v1.5H7V16z"/>
+              </svg>
             </div>
             <div class="flex-1 min-w-0 flex flex-col justify-between">
               <div>
-                <h3 class="font-jakarta text-xs font-800 text-slate-800 leading-tight line-clamp-2 group-hover:text-purple-600 smooth-transition">${doc.judul}</h3>
-                <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400 font-500">
-                  <span>Ukuran: ${doc.fileSize}</span>
-                  <span>•</span>
-                  <span>Update: ${doc.updatedAt}</span>
-                </div>
+                <h3 class="font-jakarta text-[11px] md:text-xs font-800 text-slate-800 leading-snug line-clamp-2 group-hover:text-purple-600 smooth-transition">${doc.judul}</h3>
+                <p class="text-[10px] text-slate-400 font-500 mt-1">${doc.fileSize} • Diperbarui ${doc.updatedAt}</p>
               </div>
-              <div class="flex gap-2 mt-3">
-                <button onclick="triggerDetailModalEngine('${doc.id}')" class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 smooth-transition">Detail</button>
-                ${
-                  hasFile
-                    ? `
-                  <a href="${doc.pdf}" target="_blank" class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-purple-50 border border-purple-200 hover:bg-purple-600 hover:text-white text-purple-600 smooth-transition">Download</a>
-                `
-                    : `
-                  <button disabled class="flex-1 text-center text-[10px] font-700 py-1.5 rounded-lg bg-slate-100 text-slate-400 cursor-not-allowed">Belum Ada</button>
-                `
-                }
-              </div>
+              <button onclick="triggerDetailModalEngine('${doc.id}')"
+                class="mt-2 w-full text-center text-[11px] font-700 py-2 rounded-xl border border-purple-500/20 text-purple-600 bg-purple-50 hover:bg-purple-600 hover:text-white smooth-transition">
+                Lihat & Unduh
+              </button>
             </div>
           </div>
         `;
@@ -906,38 +1018,36 @@
             alert("Folder Cloud utama belum tersedia.");
           }
         };
-
-        // Populate Video Terbaru Sidebar (2 baris terakhir)
-        const latestVideos = videoMateri.slice(-2).reverse();
-        document.getElementById("sidebarLatestVideos").innerHTML = latestVideos
-          .map(
-            (v) => `
-        <div onclick="triggerDetailModalEngine('${v.id}')" class="p-2 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 cursor-pointer flex gap-2 items-center smooth-transition">
-          <div class="w-3 h-3 rounded-full bg-brand-500 shrink-0"></div>
-          <p class="text-[11px] font-600 text-slate-700 truncate flex-1">${v.judul}</p>
-        </div>
-      `,
-          )
-          .join("");
-
-        // Populate E-Book Terbaru Sidebar (2 baris terakhir)
-        const latestEbooks = ebookMateri.slice(-2).reverse();
-        document.getElementById("sidebarLatestEbooks").innerHTML = latestEbooks
-          .map(
-            (doc) => `
-        <div onclick="triggerDetailModalEngine('${doc.id}')" class="p-2 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 cursor-pointer flex gap-2 items-center smooth-transition">
-          <div class="w-3 h-3 rounded-full bg-purple-500 shrink-0"></div>
-          <p class="text-[11px] font-600 text-slate-700 truncate flex-1">${doc.judul}</p>
-        </div>
-      `,
-          )
-          .join("");
       }
 
       // SYSTEM RUNNER ON LOAD
-      renderFilterChipsContainer();
-      handleSearchAndFilter();
-      initializeSidebarAndHeaderStats();
+      // Render dulu dengan state default (gradient) supaya halaman langsung terlihat,
+      // lalu ambil foto-foto yang sudah pernah disimpan (shared) dan render ulang.
+      async function bootApplication() {
+        renderFilterChipsContainer();
+        handleSearchAndFilter();
+        initializeSidebarAndHeaderStats();
+
+        try {
+          await Promise.all(
+            videoMateri.map(async (v) => {
+              try {
+                const stored = await window.storage.get(`thumb:${v.id}`, true);
+                if (stored && stored.value) {
+                  v.thumbnailImg = stored.value;
+                }
+              } catch (e) {
+                // Belum ada foto tersimpan untuk video ini, biarkan pakai gradient default
+              }
+            }),
+          );
+          handleSearchAndFilter();
+        } catch (e) {
+          console.error("Gagal memuat foto tersimpan:", e);
+        }
+      }
+
+      bootApplication();
     </script>
   </body>
 </html>

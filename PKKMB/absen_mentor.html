@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Absensi Mentor - Banyak Data & Auto Color</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Mengatur tampilan scrollbar agar lebih rapi */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-100 font-sans min-h-screen p-4 md:p-6 text-slate-800">
+    <div
+      class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200"
+    >
+      <div
+        class="p-6 bg-slate-900 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+      >
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">
+            Panel Absensi Kelompok 07
+          </h1>
+          <p class="text-xs text-slate-400 mt-1">
+            Mentor: Kak Dipta • Sesi Absen: 3x Sehari
+          </p>
+        </div>
+        <div
+          class="flex items-center gap-2 bg-slate-800 p-2 rounded-lg border border-slate-700"
+        >
+          <span class="text-xs font-semibold text-slate-300 px-1"
+            >Tanggal:</span
+          >
+          <input
+            type="date"
+            value="2026-06-22"
+            class="bg-transparent text-sm font-bold text-white outline-none cursor-pointer"
+          />
+        </div>
+      </div>
+
+      <div
+        class="grid grid-cols-4 gap-2 md:gap-4 p-6 bg-slate-50 border-b border-slate-200"
+      >
+        <div
+          class="bg-white p-3 rounded-xl border border-green-200 text-center shadow-sm"
+        >
+          <p class="text-xs text-slate-500 font-medium">Total Hadir</p>
+          <p
+            id="stat-hadir"
+            class="text-xl md:text-2xl font-bold text-green-600"
+          >
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white p-3 rounded-xl border border-amber-200 text-center shadow-sm"
+        >
+          <p class="text-xs text-slate-500 font-medium">Total Sakit</p>
+          <p
+            id="stat-sakit"
+            class="text-xl md:text-2xl font-bold text-amber-500"
+          >
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white p-3 rounded-xl border border-blue-200 text-center shadow-sm"
+        >
+          <p class="text-xs text-slate-500 font-medium">Total Izin</p>
+          <p id="stat-izin" class="text-xl md:text-2xl font-bold text-blue-500">
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white p-3 rounded-xl border border-red-200 text-center shadow-sm"
+        >
+          <p class="text-xs text-slate-500 font-medium">Total Alpha</p>
+          <p id="stat-alpha" class="text-xl md:text-2xl font-bold text-red-500">
+            0
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="p-4 bg-white border-b border-slate-200 flex flex-col sm:flex-row gap-3 justify-between items-center"
+      >
+        <div class="w-full sm:w-72 relative">
+          <input
+            type="text"
+            id="searchBox"
+            onkeyup="cariMahasiswa()"
+            placeholder="Cari nama mahasiswa..."
+            class="w-full pl-3 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div class="w-full sm:w-auto flex gap-2">
+          <button
+            onclick="setSemuaHadir()"
+            class="w-full sm:w-auto text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg hover:bg-emerald-100 transition"
+          >
+            ⚡ Set Semua Hadir
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="overflow-x-auto max-h-[450px] overflow-y-auto"
+        id="tableContainer"
+      >
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <thead
+            class="bg-slate-100 text-slate-600 text-xs font-semibold uppercase tracking-wider sticky top-0 z-10 shadow-sm"
+          >
+            <tr>
+              <th class="p-4 w-12 text-center bg-slate-100">No</th>
+              <th class="p-4 bg-slate-100">Nama Mahasiswa</th>
+              <th class="p-4 text-center w-32 bg-slate-100">Pagi (08:00)</th>
+              <th class="p-4 text-center w-32 bg-slate-100">Siang (13:00)</th>
+              <th class="p-4 text-center w-32 bg-slate-100">Sore (16:00)</th>
+            </tr>
+          </thead>
+          <tbody
+            id="daftarMahasiswa"
+            class="divide-y divide-slate-200 bg-white text-sm"
+          ></tbody>
+        </table>
+      </div>
+
+      <div
+        class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center"
+      >
+        <span id="jumlahTercatat" class="text-xs text-slate-500 font-medium"
+          >Menampilkan 0 mahasiswa</span
+        >
+        <button
+          onclick="simpanAbsensi()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl shadow-md transition duration-200"
+        >
+          Simpan Absensi Hari Ini
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Data Simulasi Skala Banyak (30 Mahasiswa)
+      const daftarNama = [
+        "Andi Saputra",
+        "Rini Anggraini",
+        "Budi Santoso",
+        "Siti Aisyah",
+        "Muhammad Farhan",
+        "Dinda Aulia",
+        "Fajar Nugroho",
+        "Nabila Putri",
+        "Eko Prasetyo",
+        "Dewi Lestari",
+        "Rian Hidayat",
+        "Agus Setiawan",
+        "Siti Nurjanah",
+        "Bambang Pamungkas",
+        "Mega Utami",
+        "Hendra Wijaya",
+        "Fitriani",
+        "Rizky Ramadhan",
+        "Putri Rahayu",
+        "Dimas Maulana",
+        "Anisa Fitri",
+        "Taufik Hidayat",
+        "Sri Wahyuni",
+        "Eka Putra",
+        "Yuni Lestari",
+        "Denny Caknan",
+        "Happy Asmara",
+        "Lyodra Ginting",
+        "Tiara Andini",
+        "Ziva Magnolya",
+      ];
+
+      // Fungsi Membuat Baris Tabel Otomatis saat Halaman Dibuka
+      function inisialisasiTabel() {
+        const tbody = document.getElementById("daftarMahasiswa");
+        tbody.innerHTML = "";
+
+        daftarNama.forEach((nama, index) => {
+          // Kita buat beberapa variasi status default agar tabel terlihat hidup di awal
+          let defaultPagi = index % 7 === 2 ? "S" : index % 9 === 4 ? "I" : "H";
+          let defaultSiang = index % 11 === 5 ? "A" : "H";
+          let defaultSore = "H";
+
+          const row = document.createElement("tr");
+          row.className = "student-row hover:bg-slate-50 transition-colors";
+          row.innerHTML = `
+                <td class="p-4 text-center text-slate-400 font-mono">${index + 1}</td>
+                <td class="p-4 font-semibold text-slate-700 name-col">${nama}</td>
+                <td class="p-3 text-center">
+                    <select onchange="aturWarnaDropdown(this)" class="status-select w-full text-center font-bold py-1.5 px-2 rounded-lg border text-xs cursor-pointer outline-none transition-all">
+                        <option value="H" ${defaultPagi === "H" ? "selected" : ""}>Hadir</option>
+                        <option value="S" ${defaultPagi === "S" ? "selected" : ""}>Sakit</option>
+                        <option value="I" ${defaultPagi === "I" ? "selected" : ""}>Izin</option>
+                        <option value="A" ${defaultPagi === "A" ? "selected" : ""}>Alpha</option>
+                    </select>
+                </td>
+                <td class="p-3 text-center">
+                    <select onchange="aturWarnaDropdown(this)" class="status-select w-full text-center font-bold py-1.5 px-2 rounded-lg border text-xs cursor-pointer outline-none transition-all">
+                        <option value="H" ${defaultSiang === "H" ? "selected" : ""}>Hadir</option>
+                        <option value="S" ${defaultSiang === "S" ? "selected" : ""}>Sakit</option>
+                        <option value="I" ${defaultSiang === "I" ? "selected" : ""}>Izin</option>
+                        <option value="A" ${defaultSiang === "A" ? "selected" : ""}>Alpha</option>
+                    </select>
+                </td>
+                <td class="p-3 text-center">
+                    <select onchange="aturWarnaDropdown(this)" class="status-select w-full text-center font-bold py-1.5 px-2 rounded-lg border text-xs cursor-pointer outline-none transition-all">
+                        <option value="H" ${defaultSore === "H" ? "selected" : ""}>Hadir</option>
+                        <option value="S" ${defaultSore === "S" ? "selected" : ""}>Sakit</option>
+                        <option value="I" ${defaultSore === "I" ? "selected" : ""}>Izin</option>
+                        <option value="A" ${defaultSore === "A" ? "selected" : ""}>Alpha</option>
+                    </select>
+                </td>
+            `;
+          tbody.appendChild(row);
+        });
+
+        // Terapkan warna pertama kali & hitung statistik harian
+        document
+          .querySelectorAll(".status-select")
+          .forEach((select) => aturWarnaDropdown(select));
+        hitungUlangStatistik();
+      }
+
+      // SOLUSI UTAMA ERROR WARNA: Fungsi untuk mengubah kelas warna secara dinamis berdasarkan nilai yang dipilih
+      function aturWarnaDropdown(selectElement) {
+        const nilai = selectElement.value;
+
+        // Bersihkan semua kelas warna yang lama agar tidak bentrok
+        selectElement.classList.remove(
+          "bg-green-100",
+          "text-green-800",
+          "border-green-300",
+          "bg-amber-100",
+          "text-amber-800",
+          "border-amber-300",
+          "bg-blue-100",
+          "text-blue-800",
+          "border-blue-300",
+          "bg-red-100",
+          "text-red-800",
+          "border-red-300",
+        );
+
+        // Pasangkan warna baru secara presisi dan wajib konsisten
+        if (nilai === "H") {
+          selectElement.classList.add(
+            "bg-green-100",
+            "text-green-800",
+            "border-green-300",
+          );
+        } else if (nilai === "S") {
+          selectElement.classList.add(
+            "bg-amber-100",
+            "text-amber-800",
+            "border-amber-300",
+          );
+        } else if (nilai === "I") {
+          selectElement.classList.add(
+            "bg-blue-100",
+            "text-blue-800",
+            "border-blue-300",
+          );
+        } else if (nilai === "A") {
+          selectElement.classList.add(
+            "bg-red-100",
+            "text-red-800",
+            "border-red-300",
+          );
+        }
+
+        // Setiap kali ada perubahan warna/status, angka statistik di atas langsung berhitung otomatis
+        hitungUlangStatistik();
+      }
+
+      // Fungsi Menghitung Angka Dashboard Atas secara Real-Time
+      function hitungUlangStatistik() {
+        let hadir = 0,
+          sakit = 0,
+          izin = 0,
+          alpha = 0;
+        const semuaSelect = document.querySelectorAll(".status-select");
+
+        semuaSelect.forEach((select) => {
+          if (select.value === "H") hadir++;
+          else if (select.value === "S") sakit++;
+          else if (select.value === "I") izin++;
+          else if (select.value === "A") alpha++;
+        });
+
+        document.getElementById("stat-hadir").innerText = hadir;
+        document.getElementById("stat-sakit").innerText = sakit;
+        document.getElementById("stat-izin").innerText = izin;
+        document.getElementById("stat-alpha").innerText = alpha;
+        document.getElementById("jumlahTercatat").innerText =
+          `Menampilkan ${daftarNama.length} mahasiswa`;
+      }
+
+      // Fungsi Fitur Cari Nama Instan (Live Filter)
+      function cariMahasiswa() {
+        const input = document.getElementById("searchBox").value.toLowerCase();
+        const rows = document.querySelectorAll(".student-row");
+
+        rows.forEach((row) => {
+          const nama = row.querySelector(".name-col").innerText.toLowerCase();
+          if (nama.includes(input)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      // Fitur Cepat: Mengubah status semua baris menjadi Hadir
+      function setSemuaHadir() {
+        document.querySelectorAll(".status-select").forEach((select) => {
+          select.value = "H";
+          aturWarnaDropdown(select);
+        });
+      }
+
+      // Fungsi Tombol Simpan Akhir
+      function simpanAbsensi() {
+        alert(
+          "Sukses! Semua data perubahan absensi telah tersimpan aman ke sistem.",
+        );
+      }
+
+      // Jalankan sistem pembuatan data otomatis saat halaman terbuka pertama kali
+      window.onload = inisialisasiTabel;
+    </script>
+  </body>
+</html>

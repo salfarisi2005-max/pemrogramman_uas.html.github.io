@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halaman Kontak Responsif - UNILAM</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body
+    class="bg-[#f4f7fa] text-gray-800 font-sans min-h-screen flex flex-col justify-between"
+  >
+    <nav class="bg-[#11235a] shadow-md sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-16 h-16 bg-white rounded-full flex items-center justify-center overflow-hidden border-2 border-amber-200 shadow-sm"
+            >
+              <img
+                src="unilam.png"
+                alt="Logo UNILAM"
+                class="h-16 w-16 rounded-full"
+              />
+            </div>
+            <div class="flex flex-col leading-tight">
+              <span class="text-sm font-bold text-white tracking-wide"
+                >PKKMB-KT</span
+              >
+              <span class="text-[10px] text-gray-300">UNILAM 2026</span>
+            </div>
+          </div>
+
+          <div class="hidden md:flex space-x-6 text-sm font-medium">
+            <a
+              href="home_page.html"
+              class="text-gray-300 hover:text-white transition duration-300"
+              >Beranda</a
+            >
+            <a
+              href="sejarah.html"
+              class="text-gray-300 hover:text-white transition duration-300"
+              >Tentang</a
+            >
+            <a
+              href="informasi.html"
+              class="text-gray-300 hover:text-white transition duration-300"
+              >Informasi</a
+            >
+            <a
+              href="jadwal.html"
+              class="text-gray-300 hover:text-white transition duration-300"
+              >Jadwal</a
+            >
+            <a
+              href="kontak.html"
+              class="text-white border-b-2 border-white pb-1"
+              >Kontak</a
+            >
+          </div>
+
+          <div class="md:hidden flex items-center">
+            <button
+              id="menu-btn"
+              class="text-gray-300 hover:text-white focus:outline-none cursor-pointer"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-[#162a6b] border-t border-blue-900 px-4 pt-2 pb-4 space-y-2 shadow-inner"
+      >
+        <a
+          href="home_page.html"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-[#11235a] transition"
+          >Beranda</a
+        >
+        <a
+          href="sejarah.html"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-[#11235a] transition"
+          >Tentang</a
+        >
+        <a
+          href="informasi.html"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-[#11235a] transition"
+          >Informasi</a
+        >
+        <a
+          href="jadwal.html"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-[#11235a] transition"
+          >Jadwal</a
+        >
+        <a
+          href="kontak.html"
+          class="block px-3 py-2 rounded-md text-base font-medium bg-[#11235a] text-white"
+          >Kontak</a
+        >
+      </div>
+    </nav>
+
+    <section id="kontak" class="py-12 px-4 max-w-6xl mx-auto flex-grow w-full">
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-extrabold text-[#11235a] sm:text-4xl">
+          Hubungi Kami
+        </h1>
+        <p class="mt-3 text-base text-gray-500 max-w-xl mx-auto">
+          Punya pertanyaan atau ingin berdiskusi terkait pelaksanaan PKKMB-KT?
+          Silakan kirimkan pesan Anda di bawah ini.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
+      >
+        <div class="space-y-6 justify-between flex flex-col">
+          <div>
+            <h2 class="text-xl font-bold text-[#11235a] mb-4">
+              Informasi Kontak
+            </h2>
+            <p class="text-gray-600 mb-6 text-sm leading-relaxed">
+              Kami akan dengan senang hati membantu mengatasi kendala atau
+              menjawab pertanyaan Anda secepat mungkin.
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-start space-x-4">
+                <div class="bg-blue-50 p-3 rounded-xl text-[#11235a]">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800 text-sm">
+                    Alamat Kampus
+                  </h4>
+                  <p class="text-gray-500 text-xs mt-0.5">
+                    Jl. Raya Utama No. 10, Rangkasbitung, Banten
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="bg-blue-50 p-3 rounded-xl text-[#11235a]">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800 text-sm">
+                    Email Resmi
+                  </h4>
+                  <p class="text-gray-500 text-xs mt-0.5">
+                    support@mywebsite.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <form action="#" method="POST" class="space-y-4">
+            <div>
+              <label
+                for="name"
+                class="block text-xs font-medium text-gray-700 mb-1"
+                >Nama Lengkap</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#11235a] focus:border-[#11235a] outline-none transition bg-white"
+              />
+            </div>
+
+            <div>
+              <label
+                for="email"
+                class="block text-xs font-medium text-gray-700 mb-1"
+                >Alamat Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#11235a] focus:border-[#11235a] outline-none transition bg-white"
+              />
+            </div>
+
+            <div>
+              <label
+                for="subject"
+                class="block text-xs font-medium text-gray-700 mb-1"
+                >Subjek Pesan</label
+              >
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                required
+                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#11235a] focus:border-[#11235a] outline-none transition bg-white"
+              />
+            </div>
+
+            <div>
+              <label
+                for="message"
+                class="block text-xs font-medium text-gray-700 mb-1"
+                >Isi Pesan</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#11235a] focus:border-[#11235a] outline-none transition bg-white resize-none"
+              ></textarea>
+            </div>
+
+            <a
+              href="mailto:info@unilam.ac.id"
+              type="submit"
+              class="w-full inline-block text-center bg-[#11235a] hover:bg-[#1a3175] text-white font-medium text-sm py-2.5 px-4 rounded-lg transition duration-300 shadow-md transform active:scale-[0.98] cursor-pointer"
+            >
+              Kirim Pesan
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-[#11235a] border-t border-blue-900 py-5 text-center">
+      <div class="max-w-6xl mx-auto px-4 text-xs text-gray-300">
+        &copy; 2026 Universitas La Tansa Mashiro. All rights reserved.
+      </div>
+    </footer>
+
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>
